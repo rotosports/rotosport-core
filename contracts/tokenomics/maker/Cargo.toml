@@ -28,7 +28,7 @@ cw-storage-plus = "0.15"
 rotosports = { path = "../../../packages/rotosports", default-features = false }
 thiserror = { version = "1.0" }
 cosmwasm-schema = "1.1"
-roto-satellite-package = { git = "https://github.com/rotosports-fi/rotosports_ibc", branch = "main" }
+roto-satellite-package = { git = "https://github.com/rotosports/rotosports_ibc", branch = "main" }
 
 [dev-dependencies]
 rotosports-token = { path = "../../token" }
@@ -36,6 +36,6 @@ rotosports-factory = { path = "../../factory" }
 rotosports-pair = { path = "../../pair" }
 cw-multi-test = "0.15"
 rotosports-pair-stable = { path = "../../pair_stable" }
-rotosports-governance = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
-rotosports-escrow-fee-distributor = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
+rotosports-governance = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
+rotosports-escrow-fee-distributor = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
 rotosports-native-coin-registry = { path = "../../periphery/native_coin_registry" }

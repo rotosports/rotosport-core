@@ -37,7 +37,7 @@ cw-utils = "1.0.1"
 [dev-dependencies]
 anyhow = "1.0"
 proptest = "1.0.0"
-sim = { git = "https://github.com/rotosports-fi/rotosports-sims", branch = "main", package = "sim" }
+sim = { git = "https://github.com/rotosports/rotosports-sims", branch = "main", package = "sim" }
 rotosports-token = { path = "../token" }
 cw-multi-test = "0.15"
 rotosports-factory = { path = "../factory" }

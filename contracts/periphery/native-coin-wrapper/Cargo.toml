@@ -2,7 +2,7 @@
 name = "rotosports-native-coin-wrapper"
 version = "0.1.0"
 authors = ["Rotosports"]
-repository = "https://github.com/rotosports-fi/rotosports"
+repository = "https://github.com/rotosports/rotosports"
 homepage = "https://rotosports.fi"
 edition = "2021"
 

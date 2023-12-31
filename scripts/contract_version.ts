@@ -9,9 +9,9 @@ import fs from "fs";
 import path from "path";
 
 const ROTOSPORTS_CHANGE_LOG_NAME = process.env.ROTOSPORTS_CHANGE_LOG_NAME! || String('core_phoenix')
-const ROTOSPORTS_CHANGE_LOG_URL = process.env.ROTOSPORTS_CHANGE_LOG_URL! || String("https://raw.githubusercontent.com/rotosports-fi/rotosports-changelog/main/terra-2/phoenix-1/core_phoenix.json")
+const ROTOSPORTS_CHANGE_LOG_URL = process.env.ROTOSPORTS_CHANGE_LOG_URL! || String("https://raw.githubusercontent.com/rotosports/rotosports-changelog/main/terra-2/phoenix-1/core_phoenix.json")
 const ROTOSPORTS_3RD_PARTY_LOG_NAME = process.env.ROTOSPORTS_CHANGE_LOG_NAME! || String('3rd_party_phoenix')
-const ROTOSPORTS_3RD_PARTY_LOG_URL = process.env.ROTOSPORTS_CHANGE_LOG_URL! || String("https://raw.githubusercontent.com/rotosports-fi/rotosports-changelog/main/terra-2/phoenix-1/core_phoenix.json")
+const ROTOSPORTS_3RD_PARTY_LOG_URL = process.env.ROTOSPORTS_CHANGE_LOG_URL! || String("https://raw.githubusercontent.com/rotosports/rotosports-changelog/main/terra-2/phoenix-1/core_phoenix.json")
 
 interface CInfo {
     address: string,

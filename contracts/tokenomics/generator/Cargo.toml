@@ -24,7 +24,7 @@ backtraces = ["cosmwasm-std/backtraces"]
 cw-storage-plus = "0.15"
 cw1-whitelist = { version = "0.15", features = ["library"] }
 thiserror = { version = "1.0" }
-rotosports-governance = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
+rotosports-governance = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
 protobuf = { version = "2", features = ["with-bytes"] }
 cosmwasm-std = "1.1"
 cw2 = "0.15"
@@ -34,7 +34,7 @@ cosmwasm-schema = "1.1"
 [dev-dependencies]
 
 
-generator-controller = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
+generator-controller = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
 cw-multi-test = "0.15"
 rotosports-token = { path = "../../token" }
 rotosports-vesting = { path = "../vesting" }
@@ -44,14 +44,14 @@ rotosports-pair = { path = "../../pair" }
 rotosports-pair-stable = { path = "../../pair_stable" }
 rotosports-whitelist = { path = "../../whitelist" }
 anyhow = "1"
-voting-escrow = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
-voting-escrow-delegation = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
-rotosports-nft = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
+voting-escrow = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
+voting-escrow-delegation = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
+rotosports-nft = { git = "https://github.com/rotosports/rotosports-governance", branch = "main" }
 cw721-base = { version = "0.15", features = ["library"] }
 
 
-generator-proxy-to-vkr = { git = "https://github.com/rotosports-fi/roto-generator-proxy-contracts", branch = "main" }
-valkyrie = { git = "https://github.com/rotosports-fi/valkyrieprotocol", rev = "b5fcb666f17d7e291f40365756e50fc0d7b9bf54" }
-valkyrie-lp-staking = { git = "https://github.com/rotosports-fi/valkyrieprotocol", rev = "b5fcb666f17d7e291f40365756e50fc0d7b9bf54" }
-valkyrie-vp = { git = "https://github.com/rotosports-fi/valkyrieprotocol", rev = "b5fcb666f17d7e291f40365756e50fc0d7b9bf54" }
+generator-proxy-to-vkr = { git = "https://github.com/rotosports/roto-generator-proxy-contracts", branch = "main" }
+valkyrie = { git = "https://github.com/rotosports/valkyrieprotocol", rev = "b5fcb666f17d7e291f40365756e50fc0d7b9bf54" }
+valkyrie-lp-staking = { git = "https://github.com/rotosports/valkyrieprotocol", rev = "b5fcb666f17d7e291f40365756e50fc0d7b9bf54" }
+valkyrie-vp = { git = "https://github.com/rotosports/valkyrieprotocol", rev = "b5fcb666f17d7e291f40365756e50fc0d7b9bf54" }
 rotosports-native-coin-registry = { path = "../../periphery/native_coin_registry" }

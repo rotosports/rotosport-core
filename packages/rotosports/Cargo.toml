@@ -5,7 +5,7 @@ authors = ["Rotosports"]
 edition = "2021"
 description = "Common Rotosports types, queriers and other utils"
 license = "Apache-2.0"
-repository = "https://github.com/rotosports-fi/rotosports"
+repository = "https://github.com/rotosports/rotosports"
 homepage = "https://rotosports.fi"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

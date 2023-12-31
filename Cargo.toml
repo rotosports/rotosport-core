@@ -31,6 +31,6 @@ incremental = false
 overflow-checks = true
 strip = true
 
-[patch.'https://github.com/rotosports-fi/rotosports-core']
+[patch.'https://github.com/rotosports/rotosports-core']
 rotosports = { path = "packages/rotosports" }
 

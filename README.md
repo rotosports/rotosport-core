@@ -1,6 +1,6 @@
 # Rotosports Core
 
-[![codecov](https://codecov.io/gh/rotosports-fi/rotosports-core/branch/main/graph/badge.svg?token=ROOLZTGZMM)](https://codecov.io/gh/rotosports-fi/rotosports-core)
+[![codecov](https://codecov.io/gh/rotosports/rotosports-core/branch/main/graph/badge.svg?token=ROOLZTGZMM)](https://codecov.io/gh/rotosports/rotosports-core)
 
 Multi pool type automated market-maker (AMM) protocol powered by smart contracts on the [Terra](https://terra.money) blockchain.
 
@@ -66,7 +66,7 @@ The optimized contracts are generated in the artifacts/ directory.
 
 ## Deployment
 
-You can find versions and commits for actually deployed contracts [here](https://github.com/rotosports-fi/rotosports-changelog).
+You can find versions and commits for actually deployed contracts [here](https://github.com/rotosports/rotosports-changelog).
 
 ## Docs
 

@@ -22,7 +22,7 @@ checksum = "ca87830a3e3fb156dc96cfbd31cb620265dd053be734723f22b760d6cc3c3051"
 [[package]]
 name = "ap-valkyrie"
 version = "1.0.0"
-source = "git+https://github.com/rotosports-fi/roto-generator-proxy-contracts?branch=main#e573a8f8542b99015cac910f024a5f20fd793f3c"
+source = "git+https://github.com/rotosports/roto-generator-proxy-contracts?branch=main#e573a8f8542b99015cac910f024a5f20fd793f3c"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -31,9 +31,9 @@ dependencies = [
 [[package]]
 name = "roto-satellite-package"
 version = "0.1.0"
-source = "git+https://github.com/rotosports-fi/rotosports_ibc?branch=main#61f3cf90ac7e48de93224e906171ebe206d7f860"
+source = "git+https://github.com/rotosports/rotosports_ibc?branch=main#61f3cf90ac7e48de93224e906171ebe206d7f860"
 dependencies = [
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance)",
  "cosmwasm-schema",
  "cosmwasm-std",
 ]
@@ -54,9 +54,9 @@ dependencies = [
 [[package]]
 name = "rotosports-escrow-fee-distributor"
 version = "1.0.2"
-source = "git+https://github.com/rotosports-fi/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus 0.15.1",
@@ -91,7 +91,7 @@ dependencies = [
  "anyhow",
  "rotosports",
  "rotosports-factory",
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "rotosports-native-coin-registry",
  "rotosports-nft",
  "rotosports-pair",
@@ -135,7 +135,7 @@ dependencies = [
 [[package]]
 name = "rotosports-governance"
 version = "1.2.0"
-source = "git+https://github.com/rotosports-fi/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
  "rotosports",
  "cosmwasm-schema",
@@ -147,7 +147,7 @@ dependencies = [
 [[package]]
 name = "rotosports-governance"
 version = "1.2.0"
-source = "git+https://github.com/rotosports-fi/rotosports-governance#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
  "rotosports",
  "cosmwasm-schema",
@@ -164,7 +164,7 @@ dependencies = [
  "rotosports",
  "rotosports-escrow-fee-distributor",
  "rotosports-factory",
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "rotosports-native-coin-registry",
  "rotosports-pair",
  "rotosports-pair-stable",
@@ -211,9 +211,9 @@ dependencies = [
 [[package]]
 name = "rotosports-nft"
 version = "1.0.0"
-source = "git+https://github.com/rotosports-fi/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw2 0.15.1",
@@ -1094,9 +1094,9 @@ checksum = "c8cbd1169bd7b4a0a20d92b9af7a7e0422888bd38a6f5ec29c1fd8c1558a272e"
 [[package]]
 name = "generator-controller"
 version = "1.3.0"
-source = "git+https://github.com/rotosports-fi/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus 0.15.1",
@@ -1109,7 +1109,7 @@ dependencies = [
 [[package]]
 name = "generator-proxy-to-vkr"
 version = "0.0.0"
-source = "git+https://github.com/rotosports-fi/roto-generator-proxy-contracts?branch=main#e573a8f8542b99015cac910f024a5f20fd793f3c"
+source = "git+https://github.com/rotosports/roto-generator-proxy-contracts?branch=main#e573a8f8542b99015cac910f024a5f20fd793f3c"
 dependencies = [
  "ap-valkyrie",
  "rotosports",
@@ -1725,7 +1725,7 @@ dependencies = [
 [[package]]
 name = "sim"
 version = "0.1.0"
-source = "git+https://github.com/rotosports-fi/rotosports-sims?branch=main#744b25583373e964a9f9a1c51949a67bd68e6a17"
+source = "git+https://github.com/rotosports/rotosports-sims?branch=main#744b25583373e964a9f9a1c51949a67bd68e6a17"
 dependencies = [
  "pyo3",
 ]
@@ -1879,7 +1879,7 @@ checksum = "e1766d682d402817b5ac4490b3c3002d91dfa0d22812f341609f97b08757359c"
 [[package]]
 name = "valkyrie"
 version = "1.0.8-beta.1"
-source = "git+https://github.com/rotosports-fi/valkyrieprotocol?rev=b5fcb666f17d7e291f40365756e50fc0d7b9bf54#b5fcb666f17d7e291f40365756e50fc0d7b9bf54"
+source = "git+https://github.com/rotosports/valkyrieprotocol?rev=b5fcb666f17d7e291f40365756e50fc0d7b9bf54#b5fcb666f17d7e291f40365756e50fc0d7b9bf54"
 dependencies = [
  "bigint",
  "cosmwasm-std",
@@ -1894,7 +1894,7 @@ dependencies = [
 [[package]]
 name = "valkyrie-lp-staking"
 version = "1.0.8-beta.1"
-source = "git+https://github.com/rotosports-fi/valkyrieprotocol?rev=b5fcb666f17d7e291f40365756e50fc0d7b9bf54#b5fcb666f17d7e291f40365756e50fc0d7b9bf54"
+source = "git+https://github.com/rotosports/valkyrieprotocol?rev=b5fcb666f17d7e291f40365756e50fc0d7b9bf54#b5fcb666f17d7e291f40365756e50fc0d7b9bf54"
 dependencies = [
  "cosmwasm-std",
  "cw-storage-plus 0.11.1",
@@ -1907,7 +1907,7 @@ dependencies = [
 [[package]]
 name = "valkyrie-vp"
 version = "1.0.8-beta.1"
-source = "git+https://github.com/rotosports-fi/valkyrieprotocol?rev=b5fcb666f17d7e291f40365756e50fc0d7b9bf54#b5fcb666f17d7e291f40365756e50fc0d7b9bf54"
+source = "git+https://github.com/rotosports/valkyrieprotocol?rev=b5fcb666f17d7e291f40365756e50fc0d7b9bf54#b5fcb666f17d7e291f40365756e50fc0d7b9bf54"
 dependencies = [
  "cosmwasm-std",
  "cw-storage-plus 0.11.1",
@@ -1928,9 +1928,9 @@ checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
 [[package]]
 name = "voting-escrow"
 version = "1.3.0"
-source = "git+https://github.com/rotosports-fi/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus 0.15.1",
@@ -1943,9 +1943,9 @@ dependencies = [
 [[package]]
 name = "voting-escrow-delegation"
 version = "1.0.0"
-source = "git+https://github.com/rotosports-fi/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
+source = "git+https://github.com/rotosports/rotosports-governance?branch=main#f0ef7c6dde76fc77ce360262923366a5cde3c3f8"
 dependencies = [
- "rotosports-governance 1.2.0 (git+https://github.com/rotosports-fi/rotosports-governance?branch=main)",
+ "rotosports-governance 1.2.0 (git+https://github.com/rotosports/rotosports-governance?branch=main)",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus 0.15.1",
