@@ -6,10 +6,10 @@ use cosmwasm_std::{
 };
 use cw_storage_plus::{Item, Map, SnapshotMap};
 
-use astroport::asset::{AssetInfo, PairInfo};
-use astroport::common::OwnershipProposal;
-use astroport::cosmwasm_ext::{AbsDiff, IntegerToDecimal};
-use astroport::pair_concentrated::{PromoteParams, UpdatePoolParams};
+use rotosports::asset::{AssetInfo, PairInfo};
+use rotosports::common::OwnershipProposal;
+use rotosports::cosmwasm_ext::{AbsDiff, IntegerToDecimal};
+use rotosports::pair_concentrated::{PromoteParams, UpdatePoolParams};
 
 use crate::consts::{
     AMP_MAX, AMP_MIN, FEE_GAMMA_MAX, FEE_GAMMA_MIN, FEE_TOL, GAMMA_MAX, GAMMA_MIN, MAX_CHANGE,

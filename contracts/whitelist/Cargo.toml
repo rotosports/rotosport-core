@@ -1,7 +1,7 @@
 [package]
-name = "astroport-whitelist"
+name = "rotosports-whitelist"
 version = "1.0.1"
-authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>", "Astroport"]
+authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>", "Rotosports"]
 edition = "2021"
 description = "Implementation of an proxy contract using a whitelist"
 license = "Apache-2.0"
@@ -18,7 +18,7 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-astroport = { path = "../../packages/astroport", default-features = false }
+rotosports = { path = "../../packages/rotosports", default-features = false }
 cw1-whitelist = { version = "0.15", features = ["library"] }
 cw2 = "0.15"
 cosmwasm-std = "1.1"

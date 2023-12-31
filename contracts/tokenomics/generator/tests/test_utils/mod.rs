@@ -1,4 +1,4 @@
-use astroport_governance::utils::{get_period, EPOCH_START};
+use rotosports_governance::utils::{get_period, EPOCH_START};
 use cw_multi_test::App;
 
 #[allow(clippy::all)]

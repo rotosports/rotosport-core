@@ -1,12 +1,12 @@
-# Astroport xASTRO Staking
+# Rotosports xROTO Staking
 
-This staking contract allows ASTRO holders to stake their tokens in exchange for xASTRO. The amount of ASTRO they can claim later increases as accrued fees in the Maker contract get swapped to ASTRO which is then sent to stakers.
+This staking contract allows ROTO holders to stake their tokens in exchange for xROTO. The amount of ROTO they can claim later increases as accrued fees in the Maker contract get swapped to ROTO which is then sent to stakers.
 
 ---
 
 ## InstantiateMsg
 
-Initializes the contract with the token code ID used by ASTRO and the ASTRO token address.
+Initializes the contract with the token code ID used by ROTO and the ROTO token address.
 
 ```json
 {
@@ -33,9 +33,9 @@ CW20 receive msg.
 
 #### `Enter`
 
-Deposits ASTRO in the xASTRO staking contract.
+Deposits ROTO in the xROTO staking contract.
 
-Execute this message by calling the ASTRO token contract and use a message like this:
+Execute this message by calling the ROTO token contract and use a message like this:
 ```json
 {
   "send": {
@@ -55,9 +55,9 @@ In `send.msg`, you may encode this JSON string into base64 encoding:
 
 #### `leave`
 
-Burns xASTRO and unstakes underlying ASTRO (initial staked amount + accrued ASTRO since staking).
+Burns xROTO and unstakes underlying ROTO (initial staked amount + accrued ROTO since staking).
 
-Execute this message by calling the xASTRO token contract and use a message like this:
+Execute this message by calling the xROTO token contract and use a message like this:
 ```json
 {
   "send": {
@@ -81,7 +81,7 @@ All query messages are described below. A custom struct is defined for each quer
 
 ### `config`
 
-Returns the ASTRO and xASTRO addresses.
+Returns the ROTO and xROTO addresses.
 
 ```json
 {
@@ -91,7 +91,7 @@ Returns the ASTRO and xASTRO addresses.
 
 ### `get_total_shares`
 
-Returns the total amount of xASTRO tokens.
+Returns the total amount of xROTO tokens.
 
 ```json
 {
@@ -101,7 +101,7 @@ Returns the total amount of xASTRO tokens.
 
 ### `get_total_deposit`
 
-Returns the total amount of ASTRO deposits in the staking contract.
+Returns the total amount of ROTO deposits in the staking contract.
 
 ```json
 {

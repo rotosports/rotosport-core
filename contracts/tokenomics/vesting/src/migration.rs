@@ -1,5 +1,5 @@
 use crate::state::{Config, CONFIG};
-use astroport::asset::token_asset_info;
+use rotosports::asset::token_asset_info;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, DepsMut, StdResult};
 use cw_storage_plus::Item;

@@ -7,10 +7,10 @@ use cosmwasm_std::{
 use cw2::{get_contract_version, set_contract_version};
 use cw20::Cw20ReceiveMsg;
 
-use astroport::asset::{addr_opt_validate, Asset, AssetInfo};
-use astroport::pair::{QueryMsg as PairQueryMsg, SimulationResponse};
-use astroport::querier::query_pair_info;
-use astroport::router::{
+use rotosports::asset::{addr_opt_validate, Asset, AssetInfo};
+use rotosports::pair::{QueryMsg as PairQueryMsg, SimulationResponse};
+use rotosports::querier::query_pair_info;
+use rotosports::router::{
     ConfigResponse, Cw20HookMsg, ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg,
     SimulateSwapOperationsResponse, SwapOperation, MAX_SWAP_OPERATIONS,
 };
@@ -20,7 +20,7 @@ use crate::operations::execute_swap_operation;
 use crate::state::{Config, CONFIG};
 
 /// Contract name that is used for migration.
-const CONTRACT_NAME: &str = "astroport-router";
+const CONTRACT_NAME: &str = "rotosports-router";
 /// Contract version that is used for migration.
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -37,7 +37,7 @@ pub fn instantiate(
     CONFIG.save(
         deps.storage,
         &Config {
-            astroport_factory: deps.api.addr_validate(&msg.astroport_factory)?,
+            rotosports_factory: deps.api.addr_validate(&msg.rotosports_factory)?,
         },
     )?;
 
@@ -264,7 +264,7 @@ pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> Result<Binary, ContractErr
 pub fn query_config(deps: Deps) -> Result<ConfigResponse, ContractError> {
     let state = CONFIG.load(deps.storage)?;
     let resp = ConfigResponse {
-        astroport_factory: state.astroport_factory.into_string(),
+        rotosports_factory: state.rotosports_factory.into_string(),
     };
 
     Ok(resp)
@@ -276,7 +276,7 @@ pub fn migrate(deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, C
     let contract_version = get_contract_version(deps.storage)?;
 
     match contract_version.contract.as_ref() {
-        "astroport-router" => match contract_version.version.as_ref() {
+        "rotosports-router" => match contract_version.version.as_ref() {
             "1.0.0" | "1.1.0" => {}
             _ => return Err(ContractError::MigrationError {}),
         },
@@ -305,7 +305,7 @@ fn simulate_swap_operations(
     operations: Vec<SwapOperation>,
 ) -> Result<SimulateSwapOperationsResponse, ContractError> {
     let config = CONFIG.load(deps.storage)?;
-    let astroport_factory = config.astroport_factory;
+    let rotosports_factory = config.rotosports_factory;
 
     let operations_len = operations.len();
     if operations_len == 0 {
@@ -321,13 +321,13 @@ fn simulate_swap_operations(
     let mut return_amount = offer_amount;
     for operation in operations.into_iter() {
         match operation {
-            SwapOperation::AstroSwap {
+            SwapOperation::RotoSwap {
                 offer_asset_info,
                 ask_asset_info,
             } => {
                 let pair_info = query_pair_info(
                     &deps.querier,
-                    astroport_factory.clone(),
+                    rotosports_factory.clone(),
                     &[offer_asset_info.clone(), ask_asset_info.clone()],
                 )?;
 
@@ -362,7 +362,7 @@ fn assert_operations(api: &dyn Api, operations: &[SwapOperation]) -> Result<(), 
     let mut ask_asset_map: HashSet<String> = HashSet::new();
     for operation in operations {
         let (offer_asset, ask_asset) = match operation {
-            SwapOperation::AstroSwap {
+            SwapOperation::RotoSwap {
                 offer_asset_info,
                 ask_asset_info,
             } => (offer_asset_info.clone(), ask_asset_info.clone()),
@@ -401,7 +401,7 @@ mod testing {
             assert_operations(
                 deps.as_ref().api,
                 &vec![
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::NativeToken {
                             denom: "ukrw".to_string(),
                         },
@@ -409,7 +409,7 @@ mod testing {
                             contract_addr: Addr::unchecked("asset0001"),
                         },
                     },
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::Token {
                             contract_addr: Addr::unchecked("asset0001"),
                         },
@@ -428,7 +428,7 @@ mod testing {
             assert_operations(
                 deps.as_ref().api,
                 &vec![
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::NativeToken {
                             denom: "ukrw".to_string(),
                         },
@@ -436,7 +436,7 @@ mod testing {
                             contract_addr: Addr::unchecked("asset0001"),
                         },
                     },
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::Token {
                             contract_addr: Addr::unchecked("asset0001"),
                         },
@@ -444,7 +444,7 @@ mod testing {
                             denom: "uluna".to_string(),
                         },
                     },
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::NativeToken {
                             denom: "uluna".to_string(),
                         },
@@ -463,7 +463,7 @@ mod testing {
             assert_operations(
                 deps.as_ref().api,
                 &vec![
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::NativeToken {
                             denom: "ukrw".to_string(),
                         },
@@ -471,7 +471,7 @@ mod testing {
                             contract_addr: Addr::unchecked("asset0001"),
                         },
                     },
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::Token {
                             contract_addr: Addr::unchecked("asset0001"),
                         },
@@ -479,7 +479,7 @@ mod testing {
                             denom: "uaud".to_string(),
                         },
                     },
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: AssetInfo::NativeToken {
                             denom: "uluna".to_string(),
                         },

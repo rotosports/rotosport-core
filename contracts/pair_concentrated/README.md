@@ -1,4 +1,4 @@
-# Astroport Concentrated Liquidity Pair
+# Rotosports Concentrated Liquidity Pair
 
 [//]: # (TODO: write README)
 

@@ -1,6 +1,6 @@
 use cosmwasm_std::Addr;
 
-use astroport::native_coin_registry::{CoinResponse, Config, ExecuteMsg, InstantiateMsg, QueryMsg};
+use rotosports::native_coin_registry::{CoinResponse, Config, ExecuteMsg, InstantiateMsg, QueryMsg};
 use cw_multi_test::{App, ContractWrapper, Executor};
 
 fn mock_app() -> App {
@@ -9,9 +9,9 @@ fn mock_app() -> App {
 
 fn store_native_registry_code(app: &mut App) -> u64 {
     let contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_native_coin_registry::contract::execute,
-        astroport_native_coin_registry::contract::instantiate,
-        astroport_native_coin_registry::contract::query,
+        rotosports_native_coin_registry::contract::execute,
+        rotosports_native_coin_registry::contract::instantiate,
+        rotosports_native_coin_registry::contract::query,
     ));
 
     app.store_code(contract)

@@ -1,4 +1,4 @@
-use astroport::{
+use rotosports::{
     asset::{AssetInfo, PairInfo},
     querier::query_token_precision,
 };

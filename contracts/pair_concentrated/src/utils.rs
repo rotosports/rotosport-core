@@ -5,10 +5,10 @@ use cosmwasm_std::{
 use cw20::Cw20ExecuteMsg;
 use itertools::Itertools;
 
-use astroport::asset::{Asset, AssetInfo, Decimal256Ext, DecimalAsset};
-use astroport::cosmwasm_ext::AbsDiff;
-use astroport::querier::{query_factory_config, query_supply};
-use astroport_factory::state::pair_key;
+use rotosports::asset::{Asset, AssetInfo, Decimal256Ext, DecimalAsset};
+use rotosports::cosmwasm_ext::AbsDiff;
+use rotosports::querier::{query_factory_config, query_supply};
+use rotosports_factory::state::pair_key;
 
 use crate::consts::{DEFAULT_SLIPPAGE, MAX_ALLOWED_SLIPPAGE, N, OFFER_PERCENT, TWAP_PRECISION_DEC};
 use crate::error::ContractError;
@@ -100,7 +100,7 @@ pub(crate) fn mint_liquidity_token_message(
                 &Cw20ExecuteMsg::Send {
                     contract: generator.to_string(),
                     amount,
-                    msg: to_binary(&astroport::generator::Cw20HookMsg::DepositFor(
+                    msg: to_binary(&rotosports::generator::Cw20HookMsg::DepositFor(
                         recipient.to_string(),
                     ))?,
                 },
@@ -444,7 +444,7 @@ pub fn check_pair_registered(
     factory: &Addr,
     asset_infos: &[AssetInfo],
 ) -> StdResult<bool> {
-    astroport_factory::state::PAIRS
+    rotosports_factory::state::PAIRS
         .query(&querier, factory.clone(), &pair_key(asset_infos))
         .map(|inner| inner.is_some())
 }

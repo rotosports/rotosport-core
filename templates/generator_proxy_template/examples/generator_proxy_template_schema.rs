@@ -1,4 +1,4 @@
-use astroport::generator_proxy::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
+use rotosports::generator_proxy::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
 use cosmwasm_schema::write_api;
 
 fn main() {

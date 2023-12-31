@@ -1,5 +1,5 @@
 use anyhow::Result;
-use astroport_governance::voting_escrow_delegation as escrow_delegation;
+use rotosports_governance::voting_escrow_delegation as escrow_delegation;
 use cosmwasm_std::{to_binary, Addr, Empty, QueryRequest, StdResult, Uint128, WasmQuery};
 use cw_multi_test::{App, AppResponse, Contract, ContractWrapper, Executor};
 
@@ -24,9 +24,9 @@ impl DelegationHelper {
 
     pub fn contract_nft_template() -> Box<dyn Contract<Empty>> {
         let contract = ContractWrapper::new(
-            astroport_nft::contract::execute,
-            astroport_nft::contract::instantiate,
-            astroport_nft::contract::query,
+            rotosports_nft::contract::execute,
+            rotosports_nft::contract::instantiate,
+            rotosports_nft::contract::query,
         );
         Box::new(contract)
     }
@@ -48,14 +48,14 @@ impl DelegationHelper {
                     voting_escrow_addr: escrow_addr.to_string(),
                 },
                 &[],
-                String::from("Astroport Escrow Delegation"),
+                String::from("Rotosports Escrow Delegation"),
                 None,
             )
             .unwrap();
 
         let res = router
             .wrap()
-            .query::<astroport_governance::voting_escrow_delegation::Config>(&QueryRequest::Wasm(
+            .query::<rotosports_governance::voting_escrow_delegation::Config>(&QueryRequest::Wasm(
                 WasmQuery::Smart {
                     contract_addr: delegation_addr.to_string(),
                     msg: to_binary(&escrow_delegation::QueryMsg::Config {}).unwrap(),

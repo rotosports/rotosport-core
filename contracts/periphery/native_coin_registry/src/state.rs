@@ -1,5 +1,5 @@
-use astroport::common::OwnershipProposal;
-use astroport::native_coin_registry::Config;
+use rotosports::common::OwnershipProposal;
+use rotosports::native_coin_registry::Config;
 use cw_storage_plus::Item;
 
 /// Stores the contract config at the given key

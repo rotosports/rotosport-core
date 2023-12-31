@@ -1,8 +1,8 @@
-use astroport::asset::{Asset, AssetInfo, PairInfo};
-use astroport::factory::PairType;
-use astroport::factory::QueryMsg::Pair;
-use astroport::pair::CumulativePricesResponse;
-use astroport::pair::QueryMsg::CumulativePrices;
+use rotosports::asset::{Asset, AssetInfo, PairInfo};
+use rotosports::factory::PairType;
+use rotosports::factory::QueryMsg::Pair;
+use rotosports::pair::CumulativePricesResponse;
+use rotosports::pair::QueryMsg::CumulativePrices;
 use cosmwasm_std::testing::{MockApi, MockQuerier, MockStorage, MOCK_CONTRACT_ADDR};
 use cosmwasm_std::{
     from_binary, from_slice, to_binary, Addr, Coin, Empty, OwnedDeps, Querier, QuerierResult,

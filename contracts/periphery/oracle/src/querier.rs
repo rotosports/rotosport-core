@@ -1,5 +1,5 @@
-use astroport::asset::{Asset, AssetInfo};
-use astroport::pair::{CumulativePricesResponse, QueryMsg as PairQueryMsg, SimulationResponse};
+use rotosports::asset::{Asset, AssetInfo};
+use rotosports::pair::{CumulativePricesResponse, QueryMsg as PairQueryMsg, SimulationResponse};
 use cosmwasm_std::{QuerierWrapper, StdResult};
 
 /// Returns information about a pair's asset cumulative prices using a [`CumulativePricesResponse`] object.

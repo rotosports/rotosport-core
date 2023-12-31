@@ -1,6 +1,6 @@
 use anyhow::Result;
-use astroport::{staking as xastro, token as astro};
-use astroport_governance::voting_escrow::{
+use rotosports::{staking as xroto, token as roto};
+use rotosports_governance::voting_escrow::{
     Cw20HookMsg, ExecuteMsg, InstantiateMsg, LockInfoResponse, QueryMsg, VotingPowerResponse,
 };
 use cosmwasm_std::{attr, to_binary, Addr, QueryRequest, StdResult, Uint128, WasmQuery};
@@ -11,26 +11,26 @@ pub const MULTIPLIER: u64 = 1000000;
 
 pub struct EscrowHelper {
     pub owner: Addr,
-    pub astro_token: Addr,
+    pub roto_token: Addr,
     pub staking_instance: Addr,
-    pub xastro_token: Addr,
+    pub xroto_token: Addr,
     pub escrow_instance: Addr,
-    pub astro_token_code_id: u64,
+    pub roto_token_code_id: u64,
 }
 
 impl EscrowHelper {
     pub fn init(router: &mut App, owner: Addr) -> Self {
-        let astro_token_contract = Box::new(ContractWrapper::new_with_empty(
-            astroport_token::contract::execute,
-            astroport_token::contract::instantiate,
-            astroport_token::contract::query,
+        let roto_token_contract = Box::new(ContractWrapper::new_with_empty(
+            rotosports_token::contract::execute,
+            rotosports_token::contract::instantiate,
+            rotosports_token::contract::query,
         ));
 
-        let astro_token_code_id = router.store_code(astro_token_contract);
+        let roto_token_code_id = router.store_code(roto_token_contract);
 
-        let msg = astro::InstantiateMsg {
-            name: String::from("Astro token"),
-            symbol: String::from("ASTRO"),
+        let msg = roto::InstantiateMsg {
+            name: String::from("Roto token"),
+            symbol: String::from("ROTO"),
             decimals: 6,
             initial_balances: vec![],
             mint: Some(MinterResponse {
@@ -40,32 +40,32 @@ impl EscrowHelper {
             marketing: None,
         };
 
-        let astro_token = router
+        let roto_token = router
             .instantiate_contract(
-                astro_token_code_id,
+                roto_token_code_id,
                 owner.clone(),
                 &msg,
                 &[],
-                String::from("ASTRO"),
+                String::from("ROTO"),
                 None,
             )
             .unwrap();
 
         let staking_contract = Box::new(
             ContractWrapper::new_with_empty(
-                astroport_staking::contract::execute,
-                astroport_staking::contract::instantiate,
-                astroport_staking::contract::query,
+                rotosports_staking::contract::execute,
+                rotosports_staking::contract::instantiate,
+                rotosports_staking::contract::query,
             )
-            .with_reply_empty(astroport_staking::contract::reply),
+            .with_reply_empty(rotosports_staking::contract::reply),
         );
 
         let staking_code_id = router.store_code(staking_contract);
 
-        let msg = xastro::InstantiateMsg {
+        let msg = xroto::InstantiateMsg {
             owner: owner.to_string(),
-            token_code_id: astro_token_code_id,
-            deposit_token_addr: astro_token.to_string(),
+            token_code_id: roto_token_code_id,
+            deposit_token_addr: roto_token.to_string(),
             marketing: None,
         };
         let staking_instance = router
@@ -74,16 +74,16 @@ impl EscrowHelper {
                 owner.clone(),
                 &msg,
                 &[],
-                String::from("xASTRO"),
+                String::from("xROTO"),
                 None,
             )
             .unwrap();
 
         let res = router
             .wrap()
-            .query::<xastro::ConfigResponse>(&QueryRequest::Wasm(WasmQuery::Smart {
+            .query::<xroto::ConfigResponse>(&QueryRequest::Wasm(WasmQuery::Smart {
                 contract_addr: staking_instance.to_string(),
-                msg: to_binary(&xastro::QueryMsg::Config {}).unwrap(),
+                msg: to_binary(&xroto::QueryMsg::Config {}).unwrap(),
             }))
             .unwrap();
 
@@ -108,29 +108,29 @@ impl EscrowHelper {
                 owner.clone(),
                 &msg,
                 &[],
-                String::from("vxASTRO"),
+                String::from("vxROTO"),
                 None,
             )
             .unwrap();
 
         Self {
             owner,
-            xastro_token: res.share_token_addr,
-            astro_token,
+            xroto_token: res.share_token_addr,
+            roto_token,
             staking_instance,
             escrow_instance: voting_instance,
-            astro_token_code_id,
+            roto_token_code_id,
         }
     }
 
-    pub fn mint_xastro(&self, router: &mut App, to: &str, amount: u64) {
+    pub fn mint_xroto(&self, router: &mut App, to: &str, amount: u64) {
         let amount = amount * MULTIPLIER;
         let msg = Cw20ExecuteMsg::Mint {
             recipient: String::from(to),
             amount: Uint128::from(amount),
         };
         let res = router
-            .execute_contract(self.owner.clone(), self.astro_token.clone(), &msg, &[])
+            .execute_contract(self.owner.clone(), self.roto_token.clone(), &msg, &[])
             .unwrap();
         assert_eq!(res.events[1].attributes[1], attr("action", "mint"));
         assert_eq!(res.events[1].attributes[2], attr("to", String::from(to)));
@@ -142,20 +142,20 @@ impl EscrowHelper {
         let to_addr = Addr::unchecked(to);
         let msg = Cw20ExecuteMsg::Send {
             contract: self.staking_instance.to_string(),
-            msg: to_binary(&xastro::Cw20HookMsg::Enter {}).unwrap(),
+            msg: to_binary(&xroto::Cw20HookMsg::Enter {}).unwrap(),
             amount: Uint128::from(amount),
         };
         router
-            .execute_contract(to_addr, self.astro_token.clone(), &msg, &[])
+            .execute_contract(to_addr, self.roto_token.clone(), &msg, &[])
             .unwrap();
     }
 
-    pub fn check_xastro_balance(&self, router: &mut App, user: &str, amount: u64) {
+    pub fn check_xroto_balance(&self, router: &mut App, user: &str, amount: u64) {
         let amount = amount * MULTIPLIER;
         let res: BalanceResponse = router
             .wrap()
             .query_wasm_smart(
-                self.xastro_token.clone(),
+                self.xroto_token.clone(),
                 &Cw20QueryMsg::Balance {
                     address: user.to_string(),
                 },
@@ -179,7 +179,7 @@ impl EscrowHelper {
         };
         router.execute_contract(
             Addr::unchecked(user),
-            self.xastro_token.clone(),
+            self.xroto_token.clone(),
             &cw20msg,
             &[],
         )
@@ -199,7 +199,7 @@ impl EscrowHelper {
         };
         router.execute_contract(
             Addr::unchecked(user),
-            self.xastro_token.clone(),
+            self.xroto_token.clone(),
             &cw20msg,
             &[],
         )
@@ -223,7 +223,7 @@ impl EscrowHelper {
         };
         router.execute_contract(
             Addr::unchecked(from),
-            self.xastro_token.clone(),
+            self.xroto_token.clone(),
             &cw20msg,
             &[],
         )

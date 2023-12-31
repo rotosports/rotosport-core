@@ -1,9 +1,9 @@
 [package]
-name = "astroport-pair"
+name = "rotosports-pair"
 version = "1.3.1"
-authors = ["Astroport"]
+authors = ["Rotosports"]
 edition = "2021"
-description = "The Astroport constant product pool contract implementation"
+description = "The Rotosports constant product pool contract implementation"
 license = "MIT"
 
 exclude = [
@@ -24,7 +24,7 @@ backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
 integer-sqrt = "0.1"
-astroport = { path = "../../packages/astroport", default-features = false }
+rotosports = { path = "../../packages/rotosports", default-features = false }
 cw2 = "0.15"
 cw20 = "0.15"
 cosmwasm-std = "1.1"
@@ -34,7 +34,7 @@ protobuf = { version = "2", features = ["with-bytes"] }
 cosmwasm-schema = "1.1"
 
 [dev-dependencies]
-astroport-token = { path = "../token" }
+rotosports-token = { path = "../token" }
 cw-multi-test = "0.15"
-astroport-factory = { path = "../factory" }
+rotosports-factory = { path = "../factory" }
 proptest = "1.0"

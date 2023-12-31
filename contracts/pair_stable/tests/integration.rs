@@ -1,15 +1,15 @@
-use astroport::asset::{Asset, AssetInfo, PairInfo};
-use astroport::factory::{
+use rotosports::asset::{Asset, AssetInfo, PairInfo};
+use rotosports::factory::{
     ExecuteMsg as FactoryExecuteMsg, InstantiateMsg as FactoryInstantiateMsg, PairConfig, PairType,
     QueryMsg as FactoryQueryMsg,
 };
-use astroport::pair::{
+use rotosports::pair::{
     ConfigResponse, CumulativePricesResponse, Cw20HookMsg, ExecuteMsg, InstantiateMsg, QueryMsg,
     StablePoolConfig, StablePoolParams, StablePoolUpdateParams, TWAP_PRECISION,
 };
 
-use astroport::token::InstantiateMsg as TokenInstantiateMsg;
-use astroport_pair_stable::math::{MAX_AMP, MAX_AMP_CHANGE, MIN_AMP_CHANGING_TIME};
+use rotosports::token::InstantiateMsg as TokenInstantiateMsg;
+use rotosports_pair_stable::math::{MAX_AMP, MAX_AMP_CHANGE, MIN_AMP_CHANGING_TIME};
 use cosmwasm_std::{
     attr, from_binary, to_binary, Addr, Coin, Decimal, QueryRequest, Uint128, WasmQuery,
 };
@@ -26,23 +26,23 @@ fn mock_app(owner: Addr, coins: Vec<Coin>) -> App {
 }
 
 fn store_token_code(app: &mut App) -> u64 {
-    let astro_token_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_token::contract::execute,
-        astroport_token::contract::instantiate,
-        astroport_token::contract::query,
+    let roto_token_contract = Box::new(ContractWrapper::new_with_empty(
+        rotosports_token::contract::execute,
+        rotosports_token::contract::instantiate,
+        rotosports_token::contract::query,
     ));
 
-    app.store_code(astro_token_contract)
+    app.store_code(roto_token_contract)
 }
 
 fn store_pair_code(app: &mut App) -> u64 {
     let pair_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_pair_stable::contract::execute,
-            astroport_pair_stable::contract::instantiate,
-            astroport_pair_stable::contract::query,
+            rotosports_pair_stable::contract::execute,
+            rotosports_pair_stable::contract::instantiate,
+            rotosports_pair_stable::contract::query,
         )
-        .with_reply_empty(astroport_pair_stable::contract::reply),
+        .with_reply_empty(rotosports_pair_stable::contract::reply),
     );
 
     app.store_code(pair_contract)
@@ -51,11 +51,11 @@ fn store_pair_code(app: &mut App) -> u64 {
 fn store_factory_code(app: &mut App) -> u64 {
     let factory_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_factory::contract::execute,
-            astroport_factory::contract::instantiate,
-            astroport_factory::contract::query,
+            rotosports_factory::contract::execute,
+            rotosports_factory::contract::instantiate,
+            rotosports_factory::contract::query,
         )
-        .with_reply_empty(astroport_factory::contract::reply),
+        .with_reply_empty(rotosports_factory::contract::reply),
     );
 
     app.store_code(factory_contract)
@@ -63,9 +63,9 @@ fn store_factory_code(app: &mut App) -> u64 {
 
 fn store_coin_registry_code(app: &mut App) -> u64 {
     let coin_registry_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_native_coin_registry::contract::execute,
-        astroport_native_coin_registry::contract::instantiate,
-        astroport_native_coin_registry::contract::query,
+        rotosports_native_coin_registry::contract::execute,
+        rotosports_native_coin_registry::contract::instantiate,
+        rotosports_native_coin_registry::contract::query,
     ));
 
     app.store_code(coin_registry_contract)
@@ -77,7 +77,7 @@ fn instantiate_coin_registry(mut app: &mut App, coins: Option<Vec<(String, u8)>>
         .instantiate_contract(
             coin_registry_id,
             Addr::unchecked(OWNER),
-            &astroport::native_coin_registry::InstantiateMsg {
+            &rotosports::native_coin_registry::InstantiateMsg {
                 owner: OWNER.to_string(),
             },
             &[],
@@ -90,7 +90,7 @@ fn instantiate_coin_registry(mut app: &mut App, coins: Option<Vec<(String, u8)>>
         app.execute_contract(
             Addr::unchecked(OWNER),
             coin_registry_address.clone(),
-            &astroport::native_coin_registry::ExecuteMsg::Add {
+            &rotosports::native_coin_registry::ExecuteMsg::Add {
                 native_coins: coins,
             },
             &[],

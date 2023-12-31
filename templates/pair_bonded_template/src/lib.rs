@@ -4,10 +4,10 @@ pub mod contract;
 pub mod state;
 
 use crate::state::MigrateMsg;
-use astroport::pair::InstantiateMsg;
-use astroport::pair_bonded::{ExecuteMsg, QueryMsg};
-use astroport_pair_bonded::base::PairBonded;
-use astroport_pair_bonded::error::ContractError;
+use rotosports::pair::InstantiateMsg;
+use rotosports::pair_bonded::{ExecuteMsg, QueryMsg};
+use rotosports_pair_bonded::base::PairBonded;
+use rotosports_pair_bonded::error::ContractError;
 use cosmwasm_std::{
     entry_point, from_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult,
 };

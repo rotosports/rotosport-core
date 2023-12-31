@@ -1,9 +1,9 @@
 [package]
-name = "astroport-native-coin-wrapper"
+name = "rotosports-native-coin-wrapper"
 version = "0.1.0"
-authors = ["Astroport"]
-repository = "https://github.com/astroport-fi/astroport"
-homepage = "https://astroport.fi"
+authors = ["Rotosports"]
+repository = "https://github.com/rotosports-fi/rotosports"
+homepage = "https://rotosports.fi"
 edition = "2021"
 
 exclude = [
@@ -31,8 +31,8 @@ cw2 = "0.15"
 cw20 = "0.15"
 cw-utils = "0.15"
 thiserror = { version = "1.0" }
-astroport = { path = "../../../packages/astroport" }
+rotosports = { path = "../../../packages/rotosports" }
 
 [dev-dependencies]
 cw-multi-test = "0.15"
-astroport-token = { path = "../../token" }
+rotosports-token = { path = "../../token" }

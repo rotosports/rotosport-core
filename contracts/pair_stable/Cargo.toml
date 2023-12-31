@@ -1,9 +1,9 @@
 [package]
-name = "astroport-pair-stable"
+name = "rotosports-pair-stable"
 version = "2.1.2"
-authors = ["Astroport"]
+authors = ["Rotosports"]
 edition = "2021"
-description = "The Astroport stableswap pair contract implementation"
+description = "The Rotosports stableswap pair contract implementation"
 license = "MIT"
 
 exclude = [
@@ -24,7 +24,7 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-astroport = { path = "../../packages/astroport", default-features = false }
+rotosports = { path = "../../packages/rotosports", default-features = false }
 cw2 = { version = "0.15" }
 cw20 = { version = "0.15" }
 cosmwasm-std = { version = "1.1" }
@@ -37,10 +37,10 @@ cw-utils = "1.0.1"
 [dev-dependencies]
 anyhow = "1.0"
 proptest = "1.0.0"
-sim = { git = "https://github.com/astroport-fi/astroport-sims", branch = "main", package = "sim" }
-astroport-token = { path = "../token" }
+sim = { git = "https://github.com/rotosports-fi/rotosports-sims", branch = "main", package = "sim" }
+rotosports-token = { path = "../token" }
 cw-multi-test = "0.15"
-astroport-factory = { path = "../factory" }
+rotosports-factory = { path = "../factory" }
 derivative = "2.2"
 prost = "0.11.5"
-astroport-native-coin-registry = { path = "../periphery/native_coin_registry" }
+rotosports-native-coin-registry = { path = "../periphery/native_coin_registry" }

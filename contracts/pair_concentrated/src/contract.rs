@@ -10,19 +10,19 @@ use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
 use cw_utils::parse_instantiate_response_data;
 use itertools::Itertools;
 
-use astroport::asset::{
+use rotosports::asset::{
     addr_opt_validate, format_lp_token_name, token_asset, Asset, AssetInfo, CoinsExt,
     Decimal256Ext, PairInfo, MINIMUM_LIQUIDITY_AMOUNT,
 };
-use astroport::common::{claim_ownership, drop_ownership_proposal, propose_new_owner};
-use astroport::cosmwasm_ext::{AbsDiff, DecimalToInteger, IntegerToDecimal};
-use astroport::factory::PairType;
-use astroport::pair::{Cw20HookMsg, ExecuteMsg, InstantiateMsg};
-use astroport::pair_concentrated::{
+use rotosports::common::{claim_ownership, drop_ownership_proposal, propose_new_owner};
+use rotosports::cosmwasm_ext::{AbsDiff, DecimalToInteger, IntegerToDecimal};
+use rotosports::factory::PairType;
+use rotosports::pair::{Cw20HookMsg, ExecuteMsg, InstantiateMsg};
+use rotosports::pair_concentrated::{
     ConcentratedPoolParams, ConcentratedPoolUpdateParams, MigrateMsg, UpdatePoolParams,
 };
-use astroport::querier::{query_factory_config, query_fee_info, query_supply};
-use astroport::token::InstantiateMsg as TokenInstantiateMsg;
+use rotosports::querier::{query_factory_config, query_fee_info, query_supply};
+use rotosports::token::InstantiateMsg as TokenInstantiateMsg;
 
 use crate::error::ContractError;
 use crate::math::{calc_d, get_xcp};
@@ -157,7 +157,7 @@ pub fn instantiate(
                 marketing: None,
             },
             vec![],
-            String::from("Astroport LP token"),
+            String::from("Rotosports LP token"),
         )?,
         INSTANTIATE_TOKEN_REPLY_ID,
     );
@@ -900,7 +900,7 @@ pub fn migrate(deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, C
     let contract_version = get_contract_version(deps.storage)?;
 
     match contract_version.contract.as_ref() {
-        "astroport-pair-concentrated" => match contract_version.version.as_ref() {
+        "rotosports-pair-concentrated" => match contract_version.version.as_ref() {
             "1.0.0" | "1.1.0" | "1.1.1" | "1.1.2" => migrate_config(deps.storage)?,
             "1.1.4" => migrate_config_from_v140(deps.storage)?,
             "1.2.0" | "1.2.1" | "1.2.2" => {}

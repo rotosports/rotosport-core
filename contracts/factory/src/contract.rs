@@ -9,16 +9,16 @@ use cosmwasm_std::{
 use cw2::{get_contract_version, set_contract_version};
 use protobuf::Message;
 
-use astroport::asset::{addr_opt_validate, AssetInfo, PairInfo};
-use astroport::common::{
+use rotosports::asset::{addr_opt_validate, AssetInfo, PairInfo};
+use rotosports::common::{
     claim_ownership, drop_ownership_proposal, propose_new_owner, validate_addresses,
 };
-use astroport::factory::{
+use rotosports::factory::{
     Config, ConfigResponse, ExecuteMsg, FeeInfoResponse, InstantiateMsg, MigrateMsg, PairConfig,
     PairType, PairsResponse, QueryMsg,
 };
-use astroport::generator::ExecuteMsg::DeactivatePool;
-use astroport::pair::InstantiateMsg as PairInstantiateMsg;
+use rotosports::generator::ExecuteMsg::DeactivatePool;
+use rotosports::pair::InstantiateMsg as PairInstantiateMsg;
 use itertools::Itertools;
 
 use crate::error::ContractError;
@@ -32,7 +32,7 @@ use crate::state::{
 };
 
 /// Contract name that is used for migration.
-const CONTRACT_NAME: &str = "astroport-factory";
+const CONTRACT_NAME: &str = "rotosports-factory";
 /// Contract version that is used for migration.
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 /// A `reply` call code ID used in a sub-message.
@@ -325,7 +325,7 @@ pub fn execute_create_pair(
                 init_params,
             })?,
             funds: vec![],
-            label: "Astroport pair".to_string(),
+            label: "Rotosports pair".to_string(),
         }
         .into(),
         gas_limit: None,
@@ -438,14 +438,14 @@ pub fn deregister(
 /// ## Queries
 /// * **QueryMsg::Config {}** Returns general contract parameters using a custom [`ConfigResponse`] structure.
 ///
-/// * **QueryMsg::Pair { asset_infos }** Returns a [`PairInfo`] object with information about a specific Astroport pair.
+/// * **QueryMsg::Pair { asset_infos }** Returns a [`PairInfo`] object with information about a specific Rotosports pair.
 ///
 /// * **QueryMsg::Pairs { start_after, limit }** Returns an array that contains items of type [`PairInfo`].
-/// This returns information about multiple Astroport pairs
+/// This returns information about multiple Rotosports pairs
 ///
 /// * **QueryMsg::FeeInfo { pair_type }** Returns the fee structure (total and maker fees) for a specific pair type.
 ///
-/// * **QueryMsg::BlacklistedPairTypes {}** Returns a vector that contains blacklisted pair types (pair types that cannot get ASTRO emissions).
+/// * **QueryMsg::BlacklistedPairTypes {}** Returns a vector that contains blacklisted pair types (pair types that cannot get ROTO emissions).
 ///
 /// * **QueryMsg::PairsToMigrate {}** Returns a vector that contains pair addresses that are not migrated.
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -544,7 +544,7 @@ pub fn migrate(mut deps: DepsMut, _env: Env, msg: MigrateMsg) -> Result<Response
     let contract_version = get_contract_version(deps.storage)?;
 
     match contract_version.contract.as_ref() {
-        "astroport-factory" => match contract_version.version.as_ref() {
+        "rotosports-factory" => match contract_version.version.as_ref() {
             "1.2.0" | "1.2.1" => {
                 let msg: migration::MigrationMsg = from_binary(&msg.params)?;
                 migrate_configs(&mut deps, &msg)?;

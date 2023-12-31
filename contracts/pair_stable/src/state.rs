@@ -1,5 +1,5 @@
-use astroport::asset::{AssetInfo, PairInfo};
-use astroport::common::OwnershipProposal;
+use rotosports::asset::{AssetInfo, PairInfo};
+use rotosports::common::OwnershipProposal;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, DepsMut, StdResult, Storage, Uint128};
 use cw_storage_plus::{Item, Map};

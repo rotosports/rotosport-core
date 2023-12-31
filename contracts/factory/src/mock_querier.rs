@@ -1,5 +1,5 @@
-use astroport::asset::PairInfo;
-use astroport::pair::QueryMsg;
+use rotosports::asset::PairInfo;
+use rotosports::pair::QueryMsg;
 use cosmwasm_std::testing::{MockApi, MockQuerier, MockStorage, MOCK_CONTRACT_ADDR};
 use cosmwasm_std::{
     from_binary, from_slice, to_binary, Coin, Empty, OwnedDeps, Querier, QuerierResult,
@@ -8,7 +8,7 @@ use cosmwasm_std::{
 use std::collections::HashMap;
 
 /// mock_dependencies is a drop-in replacement for cosmwasm_std::testing::mock_dependencies.
-/// This uses the Astroport CustomQuerier.
+/// This uses the Rotosports CustomQuerier.
 pub fn mock_dependencies(
     contract_balance: &[Coin],
 ) -> OwnedDeps<MockStorage, MockApi, WasmMockQuerier> {
@@ -25,17 +25,17 @@ pub fn mock_dependencies(
 
 pub struct WasmMockQuerier {
     base: MockQuerier<Empty>,
-    astroport_pair_querier: AstroportPairQuerier,
+    rotosports_pair_querier: RotosportsPairQuerier,
 }
 
 #[derive(Clone, Default)]
-pub struct AstroportPairQuerier {
+pub struct RotosportsPairQuerier {
     pairs: HashMap<String, PairInfo>,
 }
 
-impl AstroportPairQuerier {
+impl RotosportsPairQuerier {
     pub fn new(pairs: &[(&String, &PairInfo)]) -> Self {
-        AstroportPairQuerier {
+        RotosportsPairQuerier {
             pairs: pairs_to_map(pairs),
         }
     }
@@ -72,7 +72,7 @@ impl WasmMockQuerier {
                 => match from_binary(&msg).unwrap() {
                     QueryMsg::Pair {} => {
                        let pair_info: PairInfo =
-                        match self.astroport_pair_querier.pairs.get(contract_addr) {
+                        match self.rotosports_pair_querier.pairs.get(contract_addr) {
                             Some(v) => v.clone(),
                             None => {
                                 return SystemResult::Err(SystemError::NoSuchContract {
@@ -94,12 +94,12 @@ impl WasmMockQuerier {
     pub fn new(base: MockQuerier<Empty>) -> Self {
         WasmMockQuerier {
             base,
-            astroport_pair_querier: AstroportPairQuerier::default(),
+            rotosports_pair_querier: RotosportsPairQuerier::default(),
         }
     }
 
-    // Configure the Astroport pair
-    pub fn with_astroport_pairs(&mut self, pairs: &[(&String, &PairInfo)]) {
-        self.astroport_pair_querier = AstroportPairQuerier::new(pairs);
+    // Configure the Rotosports pair
+    pub fn with_rotosports_pairs(&mut self, pairs: &[(&String, &PairInfo)]) {
+        self.rotosports_pair_querier = RotosportsPairQuerier::new(pairs);
     }
 }

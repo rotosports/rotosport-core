@@ -1,7 +1,7 @@
 use cosmwasm_std::{Decimal256, Fraction, StdError, StdResult, Uint128};
 use itertools::Itertools;
 
-use astroport::cosmwasm_ext::AbsDiff;
+use rotosports::cosmwasm_ext::AbsDiff;
 
 use crate::consts::{HALFPOW_TOL, MAX_ITER, N, N_POW2, TOL};
 use crate::math::signed_decimal::SignedDecimal256;

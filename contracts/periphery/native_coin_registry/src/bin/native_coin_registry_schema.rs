@@ -1,4 +1,4 @@
-use astroport::native_coin_registry::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
+use rotosports::native_coin_registry::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
 use cosmwasm_schema::write_api;
 
 fn main() {

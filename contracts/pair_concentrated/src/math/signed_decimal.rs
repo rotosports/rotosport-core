@@ -1,4 +1,4 @@
-use astroport::cosmwasm_ext::AbsDiff;
+use rotosports::cosmwasm_ext::AbsDiff;
 use cosmwasm_std::{Decimal256, StdError};
 use std::fmt::{Display, Formatter};
 use std::ops;

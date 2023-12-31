@@ -1,7 +1,7 @@
 [package]
-name = "astroport-maker"
+name = "rotosports-maker"
 version = "1.3.1"
-authors = ["Astroport"]
+authors = ["Rotosports"]
 edition = "2021"
 
 exclude = [
@@ -25,17 +25,17 @@ cosmwasm-std = "1.1"
 cw2 = "0.15"
 cw20 = "0.15"
 cw-storage-plus = "0.15"
-astroport = { path = "../../../packages/astroport", default-features = false }
+rotosports = { path = "../../../packages/rotosports", default-features = false }
 thiserror = { version = "1.0" }
 cosmwasm-schema = "1.1"
-astro-satellite-package = { git = "https://github.com/astroport-fi/astroport_ibc", branch = "main" }
+roto-satellite-package = { git = "https://github.com/rotosports-fi/rotosports_ibc", branch = "main" }
 
 [dev-dependencies]
-astroport-token = { path = "../../token" }
-astroport-factory = { path = "../../factory" }
-astroport-pair = { path = "../../pair" }
+rotosports-token = { path = "../../token" }
+rotosports-factory = { path = "../../factory" }
+rotosports-pair = { path = "../../pair" }
 cw-multi-test = "0.15"
-astroport-pair-stable = { path = "../../pair_stable" }
-astroport-governance = { git = "https://github.com/astroport-fi/astroport-governance", branch = "main" }
-astroport-escrow-fee-distributor = { git = "https://github.com/astroport-fi/astroport-governance", branch = "main" }
-astroport-native-coin-registry = { path = "../../periphery/native_coin_registry" }
+rotosports-pair-stable = { path = "../../pair_stable" }
+rotosports-governance = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
+rotosports-escrow-fee-distributor = { git = "https://github.com/rotosports-fi/rotosports-governance", branch = "main" }
+rotosports-native-coin-registry = { path = "../../periphery/native_coin_registry" }

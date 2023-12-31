@@ -7,13 +7,13 @@ use crate::math::AMP_PRECISION;
 use crate::mock_querier::mock_dependencies;
 
 use crate::state::{store_precisions, Config, CONFIG};
-use astroport::asset::{native_asset, native_asset_info, Asset, AssetInfo, PairInfo};
+use rotosports::asset::{native_asset, native_asset_info, Asset, AssetInfo, PairInfo};
 
-use astroport::pair::{
+use rotosports::pair::{
     Cw20HookMsg, ExecuteMsg, InstantiateMsg, PoolResponse, SimulationResponse, StablePoolParams,
     TWAP_PRECISION,
 };
-use astroport::token::InstantiateMsg as TokenInstantiateMsg;
+use rotosports::token::InstantiateMsg as TokenInstantiateMsg;
 use cosmwasm_std::testing::{mock_env, mock_info, MOCK_CONTRACT_ADDR};
 use cosmwasm_std::{
     attr, coin, to_binary, Addr, BankMsg, BlockInfo, Coin, CosmosMsg, Decimal, DepsMut, Env, Reply,
@@ -106,7 +106,7 @@ fn proper_initialization() {
                 .unwrap(),
                 funds: vec![],
                 admin: None,
-                label: String::from("Astroport LP token"),
+                label: String::from("Rotosports LP token"),
             }
             .into(),
             id: 1,
@@ -1289,7 +1289,7 @@ fn mock_env_with_block_time(time: u64) -> Env {
 
 use crate::utils::{accumulate_prices, compute_swap, select_pools};
 pub const NATIVE_TOKEN_PRECISION: u8 = 6;
-use astroport::factory::PairType;
+use rotosports::factory::PairType;
 use proptest::prelude::*;
 use sim::StableSwapModel;
 

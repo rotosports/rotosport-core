@@ -1,5 +1,5 @@
 use crate::consts::MIN_AMP_CHANGING_TIME;
-use astroport::asset::MINIMUM_LIQUIDITY_AMOUNT;
+use rotosports::asset::MINIMUM_LIQUIDITY_AMOUNT;
 use cosmwasm_std::{ConversionOverflowError, Decimal, OverflowError, StdError};
 use thiserror::Error;
 

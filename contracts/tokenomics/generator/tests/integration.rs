@@ -1,8 +1,8 @@
-use astroport::asset::{native_asset_info, token_asset_info, Asset, AssetInfo, PairInfo};
-use astroport::generator::{ExecuteMsg, QueryMsg, StakerResponse};
-use astroport_governance::utils::WEEK;
+use rotosports::asset::{native_asset_info, token_asset_info, Asset, AssetInfo, PairInfo};
+use rotosports::generator::{ExecuteMsg, QueryMsg, StakerResponse};
+use rotosports_governance::utils::WEEK;
 
-use astroport::{
+use rotosports::{
     factory::{
         ConfigResponse as FactoryConfigResponse, ExecuteMsg as FactoryExecuteMsg,
         InstantiateMsg as FactoryInstantiateMsg, PairConfig, PairType, QueryMsg as FactoryQueryMsg,
@@ -20,9 +20,9 @@ use astroport::{
     },
 };
 
-use astroport::generator_proxy::ConfigResponse;
-use astroport::pair::StablePoolParams;
-use astroport_generator::error::ContractError;
+use rotosports::generator_proxy::ConfigResponse;
+use rotosports::pair::StablePoolParams;
+use rotosports_generator::error::ContractError;
 use cosmwasm_std::{to_binary, Addr, Binary, StdResult, Uint128, Uint64};
 use cw20::{BalanceResponse, Cw20ExecuteMsg, Cw20QueryMsg, MinterResponse};
 use cw_multi_test::{next_block, App, ContractWrapper, Executor};
@@ -93,7 +93,7 @@ fn test_boost_checkpoints_with_delegation() {
     // Create short lock user1
     helper_controller
         .escrow_helper
-        .mint_xastro(&mut app, USER1, 200);
+        .mint_xroto(&mut app, USER1, 200);
 
     helper_controller
         .escrow_helper
@@ -124,7 +124,7 @@ fn test_boost_checkpoints_with_delegation() {
     // Create short lock user2
     helper_controller
         .escrow_helper
-        .mint_xastro(&mut app, USER2, 100);
+        .mint_xroto(&mut app, USER2, 100);
 
     helper_controller
         .escrow_helper
@@ -176,18 +176,18 @@ fn test_boost_checkpoints_with_delegation() {
     )
     .unwrap();
 
-    // check user1's ASTRO balance
+    // check user1's ROTO balance
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user1,
         0,
     );
 
-    // check user2's ASTRO balance
+    // check user2's ROTO balance
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user2,
         0,
     );
@@ -293,10 +293,10 @@ fn test_boost_checkpoints_with_delegation() {
         9,
     );
 
-    // check user1's ASTRO balance after withdraw
+    // check user1's ROTO balance after withdraw
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user1,
         5_000_000,
     );
@@ -415,15 +415,15 @@ fn test_boost_checkpoints_with_delegation() {
 
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user1,
         5_000_000,
     );
 
-    // check user2's ASTRO balance after withdraw and checkpoint
+    // check user2's ROTO balance after withdraw and checkpoint
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user2,
         11_428_571,
     );
@@ -491,7 +491,7 @@ fn test_boost_checkpoints() {
     // Create short lock user1
     helper_controller
         .escrow_helper
-        .mint_xastro(&mut app, USER1, 200);
+        .mint_xroto(&mut app, USER1, 200);
 
     helper_controller
         .escrow_helper
@@ -522,7 +522,7 @@ fn test_boost_checkpoints() {
     // Create short lock user2
     helper_controller
         .escrow_helper
-        .mint_xastro(&mut app, USER2, 100);
+        .mint_xroto(&mut app, USER2, 100);
 
     helper_controller
         .escrow_helper
@@ -574,18 +574,18 @@ fn test_boost_checkpoints() {
     )
     .unwrap();
 
-    // check user1's ASTRO balance
+    // check user1's ROTO balance
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user1,
         0,
     );
 
-    // check user2's ASTRO balance
+    // check user2's ROTO balance
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user2,
         0,
     );
@@ -640,10 +640,10 @@ fn test_boost_checkpoints() {
         8,
     );
 
-    // check user1's ASTRO balance after withdraw
+    // check user1's ROTO balance after withdraw
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user1,
         5_000_000,
     );
@@ -695,15 +695,15 @@ fn test_boost_checkpoints() {
 
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user1,
         5_000_000,
     );
 
-    // check user2's ASTRO balance after withdraw and checkpoint
+    // check user2's ROTO balance after withdraw and checkpoint
     check_token_balance(
         &mut app,
-        &helper_controller.escrow_helper.astro_token,
+        &helper_controller.escrow_helper.roto_token,
         &user2,
         11_153_846,
     );
@@ -737,8 +737,8 @@ fn proper_deposit_and_withdraw() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
@@ -779,7 +779,7 @@ fn proper_deposit_and_withdraw() {
     );
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     register_lp_tokens_in_generator(
         &mut app,
@@ -878,8 +878,8 @@ fn set_tokens_per_block() {
     let mut app = mock_app();
 
     let token_code_id = store_token_code(&mut app);
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
@@ -889,7 +889,7 @@ fn set_tokens_per_block() {
     let generator_instance = instantiate_generator(
         &mut app,
         &factory_instance,
-        &astro_token_instance,
+        &roto_token_instance,
         Some(OWNER.to_string()),
     );
 
@@ -928,8 +928,8 @@ fn update_config() {
     let mut app = mock_app();
 
     let token_code_id = store_token_code(&mut app);
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
@@ -939,7 +939,7 @@ fn update_config() {
     let generator_instance = instantiate_generator(
         &mut app,
         &factory_instance,
-        &astro_token_instance,
+        &roto_token_instance,
         Some(OWNER.to_string()),
     );
 
@@ -951,7 +951,7 @@ fn update_config() {
 
     assert_eq!(res.owner, OWNER);
     assert_eq!(res.generator_controller, Some(Addr::unchecked(OWNER)));
-    assert_eq!(res.astro_token.to_string(), "contract0");
+    assert_eq!(res.roto_token.to_string(), "contract0");
     assert_eq!(res.factory.to_string(), "contract2");
     assert_eq!(res.vesting_contract.to_string(), "contract3");
 
@@ -1002,15 +1002,15 @@ fn update_owner() {
     let token_code_id = store_token_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
     let factory_code_id = store_factory_code(&mut app);
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
     let generator_instance = instantiate_generator(
         &mut app,
         &factory_instance,
-        &astro_token_instance,
+        &roto_token_instance,
         Some(OWNER.to_string()),
     );
 
@@ -1097,8 +1097,8 @@ fn disabling_pool() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
@@ -1122,7 +1122,7 @@ fn disabling_pool() {
     );
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     // Disable generator
     let msg = FactoryExecuteMsg::UpdatePairConfig {
@@ -1200,8 +1200,8 @@ fn generator_without_reward_proxies() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
@@ -1241,7 +1241,7 @@ fn generator_without_reward_proxies() {
     );
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     register_lp_tokens_in_generator(
         &mut app,
@@ -1313,7 +1313,7 @@ fn generator_without_reward_proxies() {
             .unwrap_err()
             .root_cause()
             .to_string(),
-        "astroport::generator::UserInfo not found".to_string()
+        "rotosports::generator::UserInfo not found".to_string()
     );
 
     app.update_block(|bi| next_block(bi));
@@ -1477,9 +1477,9 @@ fn generator_without_reward_proxies() {
     check_token_balance(&mut app, &lp_cny_eur, &user1, 10);
     check_token_balance(&mut app, &lp_cny_eur, &user2, 10);
 
-    check_token_balance(&mut app, &astro_token_instance, &user1, 0);
-    check_token_balance(&mut app, &astro_token_instance, &user2, 3_000000);
-    // 7 + 2 distributed ASTRO (for other pools). 5 orphaned by emergency withdrawals, 6 transfered to User2
+    check_token_balance(&mut app, &roto_token_instance, &user1, 0);
+    check_token_balance(&mut app, &roto_token_instance, &user2, 3_000000);
+    // 7 + 2 distributed ROTO (for other pools). 5 orphaned by emergency withdrawals, 6 transfered to User2
 
     // User1 withdraws and gets rewards
     let msg = GeneratorExecuteMsg::Withdraw {
@@ -1492,7 +1492,7 @@ fn generator_without_reward_proxies() {
     check_token_balance(&mut app, &lp_eur_usd, &generator_instance, 15);
     check_token_balance(&mut app, &lp_eur_usd, &user1, 5);
 
-    check_token_balance(&mut app, &astro_token_instance, &user1, 7_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 7_000000);
 
     // User1 withdraws and gets rewards
     let msg = GeneratorExecuteMsg::Withdraw {
@@ -1504,7 +1504,7 @@ fn generator_without_reward_proxies() {
 
     check_token_balance(&mut app, &lp_eur_usd, &generator_instance, 10);
     check_token_balance(&mut app, &lp_eur_usd, &user1, 10);
-    check_token_balance(&mut app, &astro_token_instance, &user1, 7_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 7_000000);
 
     // User2 withdraws and gets rewards
     let msg = GeneratorExecuteMsg::Withdraw {
@@ -1518,8 +1518,8 @@ fn generator_without_reward_proxies() {
     check_token_balance(&mut app, &lp_eur_usd, &user1, 10);
     check_token_balance(&mut app, &lp_eur_usd, &user2, 10);
 
-    check_token_balance(&mut app, &astro_token_instance, &user1, 7_000000);
-    check_token_balance(&mut app, &astro_token_instance, &user2, 5_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 7_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user2, 5_000000);
 }
 
 #[test]
@@ -1534,8 +1534,8 @@ fn generator_update_proxy_balance_failed() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
@@ -1559,7 +1559,7 @@ fn generator_update_proxy_balance_failed() {
     );
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     let vkr_staking_instance =
         instantiate_valkyrie_protocol(&mut app, &val_token, &pair_val_eur, &lp_val_eur);
@@ -1845,8 +1845,8 @@ fn generator_with_vkr_reward_proxy() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
@@ -1886,7 +1886,7 @@ fn generator_with_vkr_reward_proxy() {
     );
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     let vkr_staking_instance =
         instantiate_valkyrie_protocol(&mut app, &val_token, &pair_val_eur, &lp_val_eur);
@@ -1998,7 +1998,7 @@ fn generator_with_vkr_reward_proxy() {
         .unwrap_err();
     assert_eq!(
         err.root_cause().to_string(),
-        "astroport::generator::UserInfo not found".to_string()
+        "rotosports::generator::UserInfo not found".to_string()
     );
 
     app.update_block(|bi| next_block(bi));
@@ -2273,9 +2273,9 @@ fn generator_with_vkr_reward_proxy() {
     check_token_balance(&mut app, &lp_val_eur, &user1, 10);
     check_token_balance(&mut app, &lp_val_eur, &user2, 10);
 
-    check_token_balance(&mut app, &astro_token_instance, &user1, 0);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 0);
     check_token_balance(&mut app, &val_token, &user1, 0);
-    check_token_balance(&mut app, &astro_token_instance, &user2, 3_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user2, 3_000000);
     check_token_balance(&mut app, &val_token, &user2, 60000000);
 
     check_token_balance(&mut app, &val_token, &proxy_to_vkr_instance, 0);
@@ -2291,7 +2291,7 @@ fn generator_with_vkr_reward_proxy() {
     check_token_balance(&mut app, &lp_eur_usd, &generator_instance, 15);
     check_token_balance(&mut app, &lp_eur_usd, &user1, 5);
 
-    check_token_balance(&mut app, &astro_token_instance, &user1, 7_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 7_000000);
     check_token_balance(&mut app, &val_token, &user1, 0);
 
     // User1 withdraws and gets rewards
@@ -2304,7 +2304,7 @@ fn generator_with_vkr_reward_proxy() {
 
     check_token_balance(&mut app, &lp_eur_usd, &generator_instance, 10);
     check_token_balance(&mut app, &lp_eur_usd, &user1, 10);
-    check_token_balance(&mut app, &astro_token_instance, &user1, 7_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 7_000000);
     check_token_balance(&mut app, &val_token, &user1, 0);
 
     // User2 withdraws and gets rewards
@@ -2319,9 +2319,9 @@ fn generator_with_vkr_reward_proxy() {
     check_token_balance(&mut app, &lp_eur_usd, &user1, 10);
     check_token_balance(&mut app, &lp_eur_usd, &user2, 10);
 
-    check_token_balance(&mut app, &astro_token_instance, &user1, 7_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user1, 7_000000);
     check_token_balance(&mut app, &val_token, &user1, 0_000000);
-    check_token_balance(&mut app, &astro_token_instance, &user2, 5_000000);
+    check_token_balance(&mut app, &roto_token_instance, &user2, 5_000000);
     check_token_balance(&mut app, &val_token, &user2, 60000000);
 
     // Proxies val_token balance
@@ -2338,8 +2338,8 @@ fn move_to_proxy() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
 
@@ -2364,7 +2364,7 @@ fn move_to_proxy() {
     );
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     register_lp_tokens_in_generator(
         &mut app,
@@ -2508,11 +2508,11 @@ fn query_all_stakers() {
         ],
     );
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     register_lp_tokens_in_generator(
         &mut app,
@@ -2659,11 +2659,11 @@ fn query_pagination_stakers() {
         ],
     );
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let generator_instance =
-        instantiate_generator(&mut app, &factory_instance, &astro_token_instance, None);
+        instantiate_generator(&mut app, &factory_instance, &roto_token_instance, None);
 
     register_lp_tokens_in_generator(
         &mut app,
@@ -2774,8 +2774,8 @@ fn update_tokens_blocked_list() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
@@ -2783,7 +2783,7 @@ fn update_tokens_blocked_list() {
     let generator_instance = instantiate_generator(
         &mut app,
         &factory_instance,
-        &astro_token_instance,
+        &roto_token_instance,
         Some(OWNER.to_string()),
     );
 
@@ -3040,8 +3040,8 @@ fn setup_pools() {
     let factory_code_id = store_factory_code(&mut app);
     let pair_code_id = store_pair_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let factory_instance =
         instantiate_factory(&mut app, factory_code_id, token_code_id, pair_code_id, None);
@@ -3049,7 +3049,7 @@ fn setup_pools() {
     let generator_instance = instantiate_generator(
         &mut app,
         &factory_instance,
-        &astro_token_instance,
+        &roto_token_instance,
         Some(OWNER.to_string()),
     );
 
@@ -3292,8 +3292,8 @@ fn deactivate_pools_by_pair_types() {
     let pair_code_id = store_pair_code_id(&mut app);
     let pair_stable_code_id = store_pair_stable_code_id(&mut app);
 
-    let astro_token_instance =
-        instantiate_token(&mut app, token_code_id, "ASTRO", Some(1_000_000_000_000000));
+    let roto_token_instance =
+        instantiate_token(&mut app, token_code_id, "ROTO", Some(1_000_000_000_000000));
 
     let factory_instance = instantiate_factory(
         &mut app,
@@ -3306,7 +3306,7 @@ fn deactivate_pools_by_pair_types() {
     let generator_instance = instantiate_generator(
         &mut app,
         &factory_instance,
-        &astro_token_instance,
+        &roto_token_instance,
         Some(OWNER.to_string()),
     );
 
@@ -3656,7 +3656,7 @@ fn test_proxy_generator_incorrect_virtual_amount() {
     );
     helper_controller
         .escrow_helper
-        .mint_xastro(&mut app, USER1, 200);
+        .mint_xroto(&mut app, USER1, 200);
     helper_controller
         .escrow_helper
         .create_lock(&mut app, USER1, WEEK * 3, 100f32)
@@ -3804,23 +3804,23 @@ fn test_proxy_generator_incorrect_virtual_amount() {
 }
 
 fn store_token_code(app: &mut App) -> u64 {
-    let astro_token_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_token::contract::execute,
-        astroport_token::contract::instantiate,
-        astroport_token::contract::query,
+    let roto_token_contract = Box::new(ContractWrapper::new_with_empty(
+        rotosports_token::contract::execute,
+        rotosports_token::contract::instantiate,
+        rotosports_token::contract::query,
     ));
 
-    app.store_code(astro_token_contract)
+    app.store_code(roto_token_contract)
 }
 
 fn store_factory_code(app: &mut App) -> u64 {
     let factory_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_factory::contract::execute,
-            astroport_factory::contract::instantiate,
-            astroport_factory::contract::query,
+            rotosports_factory::contract::execute,
+            rotosports_factory::contract::instantiate,
+            rotosports_factory::contract::query,
         )
-        .with_reply_empty(astroport_factory::contract::reply),
+        .with_reply_empty(rotosports_factory::contract::reply),
     );
 
     app.store_code(factory_contract)
@@ -3829,11 +3829,11 @@ fn store_factory_code(app: &mut App) -> u64 {
 fn store_pair_code_id(app: &mut App) -> u64 {
     let pair_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_pair::contract::execute,
-            astroport_pair::contract::instantiate,
-            astroport_pair::contract::query,
+            rotosports_pair::contract::execute,
+            rotosports_pair::contract::instantiate,
+            rotosports_pair::contract::query,
         )
-        .with_reply_empty(astroport_pair::contract::reply),
+        .with_reply_empty(rotosports_pair::contract::reply),
     );
 
     app.store_code(pair_contract)
@@ -3842,11 +3842,11 @@ fn store_pair_code_id(app: &mut App) -> u64 {
 fn store_pair_stable_code_id(app: &mut App) -> u64 {
     let pair_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_pair_stable::contract::execute,
-            astroport_pair_stable::contract::instantiate,
-            astroport_pair_stable::contract::query,
+            rotosports_pair_stable::contract::execute,
+            rotosports_pair_stable::contract::instantiate,
+            rotosports_pair_stable::contract::query,
         )
-        .with_reply_empty(astroport_pair_stable::contract::reply),
+        .with_reply_empty(rotosports_pair_stable::contract::reply),
     );
 
     app.store_code(pair_contract)
@@ -3854,9 +3854,9 @@ fn store_pair_stable_code_id(app: &mut App) -> u64 {
 
 fn store_coin_registry_code(app: &mut App) -> u64 {
     let coin_registry_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_native_coin_registry::contract::execute,
-        astroport_native_coin_registry::contract::instantiate,
-        astroport_native_coin_registry::contract::query,
+        rotosports_native_coin_registry::contract::execute,
+        rotosports_native_coin_registry::contract::instantiate,
+        rotosports_native_coin_registry::contract::query,
     ));
 
     app.store_code(coin_registry_contract)
@@ -3887,7 +3887,7 @@ fn instantiate_coin_registry(mut app: &mut App, coins: Option<Vec<(String, u8)>>
         .instantiate_contract(
             coin_registry_id,
             Addr::unchecked(OWNER),
-            &astroport::native_coin_registry::InstantiateMsg {
+            &rotosports::native_coin_registry::InstantiateMsg {
                 owner: OWNER.to_string(),
             },
             &[],
@@ -3900,7 +3900,7 @@ fn instantiate_coin_registry(mut app: &mut App, coins: Option<Vec<(String, u8)>>
         app.execute_contract(
             Addr::unchecked(OWNER),
             coin_registry_address.clone(),
-            &astroport::native_coin_registry::ExecuteMsg::Add {
+            &rotosports::native_coin_registry::ExecuteMsg::Add {
                 native_coins: coins,
             },
             &[],
@@ -3965,21 +3965,21 @@ fn instantiate_factory(
 fn instantiate_generator(
     mut app: &mut App,
     factory_instance: &Addr,
-    astro_token_instance: &Addr,
+    roto_token_instance: &Addr,
     generator_controller: Option<String>,
 ) -> Addr {
     // Vesting
     let vesting_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_vesting::contract::execute,
-        astroport_vesting::contract::instantiate,
-        astroport_vesting::contract::query,
+        rotosports_vesting::contract::execute,
+        rotosports_vesting::contract::instantiate,
+        rotosports_vesting::contract::query,
     ));
     let owner = Addr::unchecked(OWNER);
     let vesting_code_id = app.store_code(vesting_contract);
 
     let init_msg = VestingInstantiateMsg {
         owner: owner.to_string(),
-        vesting_token: token_asset_info(astro_token_instance.clone()),
+        vesting_token: token_asset_info(roto_token_instance.clone()),
     };
 
     let vesting_instance = app
@@ -3996,7 +3996,7 @@ fn instantiate_generator(
     mint_tokens(
         &mut app,
         owner.clone(),
-        &astro_token_instance,
+        &roto_token_instance,
         &owner,
         1_000_000_000_000000,
     );
@@ -4004,11 +4004,11 @@ fn instantiate_generator(
     // Generator
     let generator_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_generator::contract::execute,
-            astroport_generator::contract::instantiate,
-            astroport_generator::contract::query,
+            rotosports_generator::contract::execute,
+            rotosports_generator::contract::instantiate,
+            rotosports_generator::contract::query,
         )
-        .with_reply_empty(astroport_generator::contract::reply),
+        .with_reply_empty(rotosports_generator::contract::reply),
     );
 
     let whitelist_code_id = store_whitelist_code(&mut app);
@@ -4019,7 +4019,7 @@ fn instantiate_generator(
         factory: factory_instance.to_string(),
         guardian: None,
         start_block: Uint64::from(app.block_info().height),
-        astro_token: token_asset_info(astro_token_instance.clone()),
+        roto_token: token_asset_info(roto_token_instance.clone()),
         tokens_per_block: Uint128::new(10_000000),
         vesting_contract: vesting_instance.to_string(),
         generator_controller,
@@ -4062,7 +4062,7 @@ fn instantiate_generator(
         amount,
     };
 
-    app.execute_contract(owner, astro_token_instance.clone(), &msg, &[])
+    app.execute_contract(owner, roto_token_instance.clone(), &msg, &[])
         .unwrap();
 
     generator_instance
@@ -4298,9 +4298,9 @@ fn create_pair(
 
 fn store_whitelist_code(app: &mut App) -> u64 {
     let whitelist_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_whitelist::contract::execute,
-        astroport_whitelist::contract::instantiate,
-        astroport_whitelist::contract::query,
+        rotosports_whitelist::contract::execute,
+        rotosports_whitelist::contract::instantiate,
+        rotosports_whitelist::contract::query,
     ));
 
     app.store_code(whitelist_contract)

@@ -3,10 +3,10 @@ extern crate core;
 mod helper;
 
 use crate::helper::{dec_to_f64, f64_to_dec, AppExtension, Helper, TestCoin};
-use astroport::asset::AssetInfoExt;
-use astroport::cosmwasm_ext::AbsDiff;
-use astroport::pair_concentrated::ConcentratedPoolParams;
-use astroport_pair_concentrated::error::ContractError;
+use rotosports::asset::AssetInfoExt;
+use rotosports::cosmwasm_ext::AbsDiff;
+use rotosports::pair_concentrated::ConcentratedPoolParams;
+use rotosports_pair_concentrated::error::ContractError;
 use cosmwasm_std::{Addr, Decimal, Decimal256};
 use proptest::prelude::*;
 use std::collections::HashMap;

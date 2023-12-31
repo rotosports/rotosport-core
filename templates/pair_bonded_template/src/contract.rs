@@ -1,11 +1,11 @@
 use crate::state::Params;
 use cosmwasm_std::{Addr, Decimal, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
 
-use astroport::asset::Asset;
+use rotosports::asset::Asset;
 
-use astroport::pair::{ReverseSimulationResponse, SimulationResponse};
-use astroport_pair_bonded::base::PairBonded;
-use astroport_pair_bonded::error::ContractError;
+use rotosports::pair::{ReverseSimulationResponse, SimulationResponse};
+use rotosports_pair_bonded::base::PairBonded;
+use rotosports_pair_bonded::error::ContractError;
 use cw_storage_plus::Item;
 
 /// This structure stores contract params.
@@ -23,7 +23,7 @@ impl<'a> Contract<'a> {
 
 /// Implementation of the bonded pair template.
 impl<'a> PairBonded<'a> for Contract<'a> {
-    const CONTRACT_NAME: &'a str = "astroport-pair-bonded-template";
+    const CONTRACT_NAME: &'a str = "rotosports-pair-bonded-template";
 
     fn swap(
         &self,
@@ -39,7 +39,7 @@ impl<'a> PairBonded<'a> for Contract<'a> {
         todo!("Implement swap assets using 3rd party contract.")
     }
 
-    /// Simulation swap using Astroport Staking contract.
+    /// Simulation swap using Rotosports Staking contract.
     fn query_simulation(
         &self,
         _deps: Deps,

@@ -9,22 +9,22 @@ use cosmwasm_std::{
 };
 
 use crate::response::MsgInstantiateContractResponse;
-use astroport::asset::{
+use rotosports::asset::{
     addr_opt_validate, check_swap_parameters, format_lp_token_name, Asset, AssetInfo, CoinsExt,
     PairInfo, MINIMUM_LIQUIDITY_AMOUNT,
 };
-use astroport::factory::PairType;
-use astroport::generator::Cw20HookMsg as GeneratorHookMsg;
-use astroport::pair::{
+use rotosports::factory::PairType;
+use rotosports::generator::Cw20HookMsg as GeneratorHookMsg;
+use rotosports::pair::{
     migration_check, ConfigResponse, XYKPoolConfig, XYKPoolParams, XYKPoolUpdateParams,
     DEFAULT_SLIPPAGE, MAX_ALLOWED_SLIPPAGE,
 };
-use astroport::pair::{
+use rotosports::pair::{
     CumulativePricesResponse, Cw20HookMsg, ExecuteMsg, InstantiateMsg, MigrateMsg, PoolResponse,
     QueryMsg, ReverseSimulationResponse, SimulationResponse, TWAP_PRECISION,
 };
-use astroport::querier::{query_factory_config, query_fee_info, query_supply};
-use astroport::{token::InstantiateMsg as TokenInstantiateMsg, U256};
+use rotosports::querier::{query_factory_config, query_fee_info, query_supply};
+use rotosports::{token::InstantiateMsg as TokenInstantiateMsg, U256};
 use cw2::{get_contract_version, set_contract_version};
 use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
 use protobuf::Message;
@@ -32,7 +32,7 @@ use std::str::FromStr;
 use std::vec;
 
 /// Contract name that is used for migration.
-const CONTRACT_NAME: &str = "astroport-pair";
+const CONTRACT_NAME: &str = "rotosports-pair";
 /// Contract version that is used for migration.
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 /// A `reply` call code ID used for sub-messages.
@@ -107,7 +107,7 @@ pub fn instantiate(
             })?,
             funds: vec![],
             admin: None,
-            label: String::from("Astroport LP token"),
+            label: String::from("Rotosports LP token"),
         }
         .into(),
         id: INSTANTIATE_TOKEN_REPLY_ID,
@@ -1254,7 +1254,7 @@ pub fn migrate(deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, C
     let contract_version = get_contract_version(deps.storage)?;
 
     match contract_version.contract.as_ref() {
-        "astroport-pair" => match contract_version.version.as_ref() {
+        "rotosports-pair" => match contract_version.version.as_ref() {
             "1.0.0" | "1.0.1" | "1.1.0" | "1.2.0" => {
                 migration::add_asset_balances_tracking_flag(deps.storage)?;
             }

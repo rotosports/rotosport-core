@@ -4,9 +4,9 @@ use cw_storage_plus::{Bound, Item, Map};
 use itertools::Itertools;
 
 use crate::error::ContractError;
-use astroport::asset::AssetInfo;
-use astroport::common::OwnershipProposal;
-use astroport::factory::{Config, PairConfig};
+use rotosports::asset::AssetInfo;
+use rotosports::common::OwnershipProposal;
+use rotosports::factory::{Config, PairConfig};
 /// This is an intermediate structure for storing a pair's key. It is used in a submessage response.
 #[cw_serde]
 pub struct TmpPairInfo {
@@ -117,7 +117,7 @@ pub const PAIRS_TO_MIGRATE: Item<Vec<Addr>> = Item::new("pairs_to_migrate");
 
 #[cfg(test)]
 mod tests {
-    use astroport::asset::{native_asset_info, token_asset_info};
+    use rotosports::asset::{native_asset_info, token_asset_info};
 
     use super::*;
 
@@ -129,11 +129,11 @@ mod tests {
             ],
             [
                 native_asset_info("uluna".to_string()),
-                token_asset_info(Addr::unchecked("astro_token_addr")),
+                token_asset_info(Addr::unchecked("roto_token_addr")),
             ],
             [
                 token_asset_info(Addr::unchecked("random_token_addr")),
-                token_asset_info(Addr::unchecked("astro_token_addr")),
+                token_asset_info(Addr::unchecked("roto_token_addr")),
             ],
         ]
     }

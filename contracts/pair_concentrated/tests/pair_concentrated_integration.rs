@@ -3,16 +3,16 @@ use cosmwasm_std::{Addr, Decimal, Uint128};
 use cw_multi_test::{next_block, Executor};
 use itertools::Itertools;
 
-use astroport::asset::{
+use rotosports::asset::{
     native_asset_info, Asset, AssetInfo, AssetInfoExt, MINIMUM_LIQUIDITY_AMOUNT,
 };
 
-use astroport::pair::{ExecuteMsg, PoolResponse};
-use astroport::pair_concentrated::{
+use rotosports::pair::{ExecuteMsg, PoolResponse};
+use rotosports::pair_concentrated::{
     ConcentratedPoolParams, ConcentratedPoolUpdateParams, PromoteParams, QueryMsg, UpdatePoolParams,
 };
-use astroport_pair_concentrated::consts::{AMP_MAX, AMP_MIN, MA_HALF_TIME_LIMITS};
-use astroport_pair_concentrated::error::ContractError;
+use rotosports_pair_concentrated::consts::{AMP_MAX, AMP_MIN, MA_HALF_TIME_LIMITS};
+use rotosports_pair_concentrated::error::ContractError;
 
 use crate::helper::{dec_to_f64, f64_to_dec, AppExtension, Helper, TestCoin};
 
@@ -47,7 +47,7 @@ fn check_wrong_initialization() {
 
     let err = Helper::new(
         &owner,
-        vec![TestCoin::native("uluna"), TestCoin::cw20("ASTRO")],
+        vec![TestCoin::native("uluna"), TestCoin::cw20("ROTO")],
         wrong_params,
     )
     .unwrap_err();
@@ -66,7 +66,7 @@ fn check_wrong_initialization() {
 
     let err = Helper::new(
         &owner,
-        vec![TestCoin::native("uluna"), TestCoin::cw20("ASTRO")],
+        vec![TestCoin::native("uluna"), TestCoin::cw20("ROTO")],
         wrong_params,
     )
     .unwrap_err();
@@ -85,7 +85,7 @@ fn check_wrong_initialization() {
 
     let err = Helper::new(
         &owner,
-        vec![TestCoin::native("uluna"), TestCoin::cw20("ASTRO")],
+        vec![TestCoin::native("uluna"), TestCoin::cw20("ROTO")],
         wrong_params,
     )
     .unwrap_err();
@@ -98,7 +98,7 @@ fn check_wrong_initialization() {
     // check instantiation with valid params
     Helper::new(
         &owner,
-        vec![TestCoin::native("uluna"), TestCoin::cw20("ASTRO")],
+        vec![TestCoin::native("uluna"), TestCoin::cw20("ROTO")],
         params,
     )
     .unwrap();

@@ -2,13 +2,13 @@ mod factory_helper;
 
 use cosmwasm_std::{attr, Addr};
 
-use astroport::asset::{AssetInfo, PairInfo};
-use astroport::factory::{
+use rotosports::asset::{AssetInfo, PairInfo};
+use rotosports::factory::{
     ConfigResponse, ExecuteMsg, FeeInfoResponse, InstantiateMsg, PairConfig, PairType, QueryMsg,
 };
 
 use crate::factory_helper::{instantiate_token, FactoryHelper};
-use astroport::pair::ExecuteMsg as PairExecuteMsg;
+use rotosports::pair::ExecuteMsg as PairExecuteMsg;
 use cw_multi_test::{App, ContractWrapper, Executor};
 
 fn mock_app() -> App {
@@ -18,11 +18,11 @@ fn mock_app() -> App {
 fn store_factory_code(app: &mut App) -> u64 {
     let factory_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_factory::contract::execute,
-            astroport_factory::contract::instantiate,
-            astroport_factory::contract::query,
+            rotosports_factory::contract::execute,
+            rotosports_factory::contract::instantiate,
+            rotosports_factory::contract::query,
         )
-        .with_reply_empty(astroport_factory::contract::reply),
+        .with_reply_empty(rotosports_factory::contract::reply),
     );
 
     app.store_code(factory_contract)

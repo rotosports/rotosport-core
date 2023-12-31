@@ -1,6 +1,6 @@
-# Astroport Router
+# Rotosports Router
 
-The Router contract contains logic to facilitate multi-hop swaps for Terra native & Astroport tokens.
+The Router contract contains logic to facilitate multi-hop swaps for Terra native & Rotosports tokens.
 
 ---
 
@@ -10,11 +10,11 @@ For every swap, the contract checks if the resulting token is the one that was a
 
 ## InstantiateMsg
 
-Initializes the contract with the Astroport factory contract address.
+Initializes the contract with the Rotosports factory contract address.
 
 ```json
 {
-  "astroport_factory": "terra..."
+  "rotosports_factory": "terra..."
 }
 ```
 
@@ -47,7 +47,7 @@ Swap UST => mABNB
 {
    "execute_swap_operation": {
      "operation": {
-        "astro_swap": {
+        "roto_swap": {
           "offer_asset_info": {
             "native_token": {
               "denom": "uusd"
@@ -69,7 +69,7 @@ Swap UST => mABNB
 
 ### `execute_swap_operations`
 
-Performs multi-hop swap operations for native & Astroport tokens. Swaps execute one-by-one and the last swap will return the ask token. This function is public (can be called by anyone).
+Performs multi-hop swap operations for native & Rotosports tokens. Swaps execute one-by-one and the last swap will return the ask token. This function is public (can be called by anyone).
 
 ### Example
 
@@ -86,7 +86,7 @@ Swap KRT => UST => mABNB
         }
       },
       {
-        "astro_swap": {
+        "roto_swap": {
           "offer_asset_info": {
             "native_token": {
               "denom": "uusd"
@@ -158,7 +158,7 @@ Simulates multi-hop swap operations. Examples:
         }
       },
       {
-        "astro_swap": {
+        "roto_swap": {
           "offer_asset_info": {
             "native_token": {
               "denom": "uusd"
@@ -190,7 +190,7 @@ Simulates multi-hop swap operations. Examples:
       }
     },
     {
-      "astro_swap": {
+      "roto_swap": {
         "offer_asset_info": {
           "token": {
             "contract_addr": "terra..."

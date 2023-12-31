@@ -14,27 +14,27 @@ use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
 use cw_utils::parse_instantiate_response_data;
 use itertools::Itertools;
 
-use astroport::asset::{
+use rotosports::asset::{
     addr_opt_validate, check_swap_parameters, format_lp_token_name, Asset, AssetInfo, CoinsExt,
     Decimal256Ext, DecimalAsset, PairInfo, MINIMUM_LIQUIDITY_AMOUNT,
 };
-use astroport::common::{claim_ownership, drop_ownership_proposal, propose_new_owner};
-use astroport::factory::PairType;
-use astroport::pair::{
+use rotosports::common::{claim_ownership, drop_ownership_proposal, propose_new_owner};
+use rotosports::factory::PairType;
+use rotosports::pair::{
     migration_check, ConfigResponse, InstantiateMsg, StablePoolParams, StablePoolUpdateParams,
     DEFAULT_SLIPPAGE, MAX_ALLOWED_SLIPPAGE,
 };
 
 use crate::migration::migrate_config_to_v210;
-use astroport::pair::{
+use rotosports::pair::{
     CumulativePricesResponse, Cw20HookMsg, ExecuteMsg, MigrateMsg, PoolResponse, QueryMsg,
     ReverseSimulationResponse, SimulationResponse, StablePoolConfig,
 };
-use astroport::querier::{
+use rotosports::querier::{
     query_factory_config, query_fee_info, query_supply, query_token_precision,
 };
-use astroport::token::InstantiateMsg as TokenInstantiateMsg;
-use astroport::DecimalCheckedOps;
+use rotosports::token::InstantiateMsg as TokenInstantiateMsg;
+use rotosports::DecimalCheckedOps;
 
 use crate::error::ContractError;
 use crate::math::{
@@ -48,7 +48,7 @@ use crate::utils::{
 };
 
 /// Contract name that is used for migration.
-const CONTRACT_NAME: &str = "astroport-pair-stable";
+const CONTRACT_NAME: &str = "rotosports-pair-stable";
 /// Contract version that is used for migration.
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 /// A `reply` call code ID of sub-message.
@@ -138,7 +138,7 @@ pub fn instantiate(
                 marketing: None,
             },
             vec![],
-            String::from("Astroport LP token"),
+            String::from("Rotosports LP token"),
         )?,
         INSTANTIATE_TOKEN_REPLY_ID,
     );
@@ -1071,7 +1071,7 @@ pub fn migrate(mut deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Respons
     let contract_version = get_contract_version(deps.storage)?;
 
     match contract_version.contract.as_ref() {
-        "astroport-pair-stable" => match contract_version.version.as_ref() {
+        "rotosports-pair-stable" => match contract_version.version.as_ref() {
             "1.0.0-fix1" | "1.1.0" | "1.1.1" => {
                 migrate_config_to_v210(deps.branch())?;
             }

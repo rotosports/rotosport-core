@@ -6,9 +6,9 @@ use cw20::Cw20ExecuteMsg;
 use itertools::Itertools;
 use std::cmp::Ordering;
 
-use astroport::asset::{Asset, AssetInfo, Decimal256Ext, DecimalAsset};
-use astroport::pair::TWAP_PRECISION;
-use astroport::querier::query_factory_config;
+use rotosports::asset::{Asset, AssetInfo, Decimal256Ext, DecimalAsset};
+use rotosports::pair::TWAP_PRECISION;
+use rotosports::querier::query_factory_config;
 
 use crate::error::ContractError;
 use crate::math::calc_y;
@@ -201,7 +201,7 @@ pub(crate) fn mint_liquidity_token_message(
                 &Cw20ExecuteMsg::Send {
                     contract: generator.to_string(),
                     amount,
-                    msg: to_binary(&astroport::generator::Cw20HookMsg::DepositFor(
+                    msg: to_binary(&rotosports::generator::Cw20HookMsg::DepositFor(
                         recipient.to_string(),
                     ))?,
                 },

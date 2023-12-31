@@ -1,14 +1,14 @@
-use astroport::asset::{native_asset_info, Asset, AssetInfo, PairInfo};
-use astroport::factory::{
+use rotosports::asset::{native_asset_info, Asset, AssetInfo, PairInfo};
+use rotosports::factory::{
     ExecuteMsg as FactoryExecuteMsg, InstantiateMsg as FactoryInstantiateMsg, PairConfig, PairType,
     QueryMsg as FactoryQueryMsg,
 };
-use astroport::pair::{
+use rotosports::pair::{
     ConfigResponse, CumulativePricesResponse, Cw20HookMsg, ExecuteMsg, InstantiateMsg, QueryMsg,
     XYKPoolConfig, XYKPoolParams, XYKPoolUpdateParams, TWAP_PRECISION,
 };
-use astroport::token::InstantiateMsg as TokenInstantiateMsg;
-use astroport_pair::error::ContractError;
+use rotosports::token::InstantiateMsg as TokenInstantiateMsg;
+use rotosports_pair::error::ContractError;
 use cosmwasm_std::{attr, to_binary, Addr, Coin, Decimal, Uint128};
 use cw20::{BalanceResponse, Cw20Coin, Cw20ExecuteMsg, Cw20QueryMsg, MinterResponse};
 use cw_multi_test::{App, ContractWrapper, Executor};
@@ -23,23 +23,23 @@ fn mock_app(owner: Addr, coins: Vec<Coin>) -> App {
 }
 
 fn store_token_code(app: &mut App) -> u64 {
-    let astro_token_contract = Box::new(ContractWrapper::new_with_empty(
-        astroport_token::contract::execute,
-        astroport_token::contract::instantiate,
-        astroport_token::contract::query,
+    let roto_token_contract = Box::new(ContractWrapper::new_with_empty(
+        rotosports_token::contract::execute,
+        rotosports_token::contract::instantiate,
+        rotosports_token::contract::query,
     ));
 
-    app.store_code(astro_token_contract)
+    app.store_code(roto_token_contract)
 }
 
 fn store_pair_code(app: &mut App) -> u64 {
     let pair_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_pair::contract::execute,
-            astroport_pair::contract::instantiate,
-            astroport_pair::contract::query,
+            rotosports_pair::contract::execute,
+            rotosports_pair::contract::instantiate,
+            rotosports_pair::contract::query,
         )
-        .with_reply_empty(astroport_pair::contract::reply),
+        .with_reply_empty(rotosports_pair::contract::reply),
     );
 
     app.store_code(pair_contract)
@@ -48,11 +48,11 @@ fn store_pair_code(app: &mut App) -> u64 {
 fn store_factory_code(app: &mut App) -> u64 {
     let factory_contract = Box::new(
         ContractWrapper::new_with_empty(
-            astroport_factory::contract::execute,
-            astroport_factory::contract::instantiate,
-            astroport_factory::contract::query,
+            rotosports_factory::contract::execute,
+            rotosports_factory::contract::instantiate,
+            rotosports_factory::contract::query,
         )
-        .with_reply_empty(astroport_factory::contract::reply),
+        .with_reply_empty(rotosports_factory::contract::reply),
     );
 
     app.store_code(factory_contract)
@@ -263,7 +263,7 @@ fn test_provide_and_withdraw_liquidity() {
         .instantiate_contract(
             token_contract_code_id,
             owner.clone(),
-            &astroport::token::InstantiateMsg {
+            &rotosports::token::InstantiateMsg {
                 name: "Foo token".to_string(),
                 symbol: "FOO".to_string(),
                 decimals: 6,

@@ -1,18 +1,18 @@
 mod factory_helper;
 
 use crate::factory_helper::{instantiate_token, mint, FactoryHelper};
-use astroport::asset::token_asset_info;
-use astroport::factory::PairType;
-use astroport::router::{ExecuteMsg, InstantiateMsg, SwapOperation};
+use rotosports::asset::token_asset_info;
+use rotosports::factory::PairType;
+use rotosports::router::{ExecuteMsg, InstantiateMsg, SwapOperation};
 use cosmwasm_std::{to_binary, Addr, Empty};
 use cw20::Cw20ExecuteMsg;
 use cw_multi_test::{App, Contract, ContractWrapper, Executor};
 
 fn router_contract() -> Box<dyn Contract<Empty>> {
     Box::new(ContractWrapper::new_with_empty(
-        astroport_router::contract::execute,
-        astroport_router::contract::instantiate,
-        astroport_router::contract::query,
+        rotosports_router::contract::execute,
+        rotosports_router::contract::instantiate,
+        rotosports_router::contract::query,
     ))
 }
 
@@ -44,7 +44,7 @@ fn router_does_not_enforce_spread_assertion() {
             router_code,
             owner.clone(),
             &InstantiateMsg {
-                astroport_factory: helper.factory.to_string(),
+                rotosports_factory: helper.factory.to_string(),
             },
             &[],
             "router",
@@ -62,11 +62,11 @@ fn router_does_not_enforce_spread_assertion() {
             amount: 50_000_000000u128.into(),
             msg: to_binary(&ExecuteMsg::ExecuteSwapOperations {
                 operations: vec![
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: token_asset_info(token_x.clone()),
                         ask_asset_info: token_asset_info(token_y.clone()),
                     },
-                    SwapOperation::AstroSwap {
+                    SwapOperation::RotoSwap {
                         offer_asset_info: token_asset_info(token_y.clone()),
                         ask_asset_info: token_asset_info(token_z.clone()),
                     },
@@ -91,7 +91,7 @@ fn router_does_not_enforce_spread_assertion() {
                 contract: router.to_string(),
                 amount: 50_000_000000u128.into(),
                 msg: to_binary(&ExecuteMsg::ExecuteSwapOperations {
-                    operations: vec![SwapOperation::AstroSwap {
+                    operations: vec![SwapOperation::RotoSwap {
                         offer_asset_info: token_asset_info(token_x.clone()),
                         ask_asset_info: token_asset_info(token_y.clone()),
                     }],
@@ -105,7 +105,7 @@ fn router_does_not_enforce_spread_assertion() {
         )
         .unwrap_err();
     assert_eq!(
-        astroport_pair::error::ContractError::MaxSpreadAssertion {},
+        rotosports_pair::error::ContractError::MaxSpreadAssertion {},
         err.downcast().unwrap()
     )
 }

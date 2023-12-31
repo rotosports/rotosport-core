@@ -1,7 +1,7 @@
 use cosmwasm_std::{CheckedMultiplyRatioError, ConversionOverflowError, OverflowError, StdError};
 use thiserror::Error;
 
-use astroport::asset::MINIMUM_LIQUIDITY_AMOUNT;
+use rotosports::asset::MINIMUM_LIQUIDITY_AMOUNT;
 
 use crate::math::{MAX_AMP, MAX_AMP_CHANGE, MIN_AMP_CHANGING_TIME};
 

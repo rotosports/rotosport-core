@@ -6,14 +6,14 @@ use crate::utils::{
     accumulate_prices, before_swap_check, calc_last_prices, compute_offer_amount, compute_swap,
     get_share_in_assets, pool_info, query_pools,
 };
-use astroport::asset::{Asset, AssetInfo};
-use astroport::cosmwasm_ext::{DecimalToInteger, IntegerToDecimal};
-use astroport::pair::{
+use rotosports::asset::{Asset, AssetInfo};
+use rotosports::cosmwasm_ext::{DecimalToInteger, IntegerToDecimal};
+use rotosports::pair::{
     ConfigResponse, CumulativePricesResponse, PoolResponse, ReverseSimulationResponse,
     SimulationResponse,
 };
-use astroport::pair_concentrated::{ConcentratedPoolConfig, QueryMsg};
-use astroport::querier::{query_factory_config, query_fee_info, query_supply};
+use rotosports::pair_concentrated::{ConcentratedPoolConfig, QueryMsg};
+use rotosports::querier::{query_factory_config, query_fee_info, query_supply};
 use cosmwasm_std::{
     entry_point, to_binary, Binary, Decimal, Decimal256, Deps, Env, StdError, StdResult, Uint128,
     Uint64,

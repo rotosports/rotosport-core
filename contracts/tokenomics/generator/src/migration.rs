@@ -1,7 +1,7 @@
 use crate::state::CONFIG;
-use astroport::asset::{token_asset_info, AssetInfo};
+use rotosports::asset::{token_asset_info, AssetInfo};
 
-use astroport::generator::{Config, MigrateMsg};
+use rotosports::generator::{Config, MigrateMsg};
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, DepsMut, StdResult, Uint128, Uint64};
 use cw_storage_plus::Item;
@@ -17,13 +17,13 @@ pub struct ConfigV200 {
     pub generator_controller: Option<Addr>,
     /// The voting escrow contract address
     pub voting_escrow: Option<Addr>,
-    /// The ASTRO token address
-    pub astro_token: Addr,
-    /// Total amount of ASTRO rewards per block
+    /// The ROTO token address
+    pub roto_token: Addr,
+    /// Total amount of ROTO rewards per block
     pub tokens_per_block: Uint128,
     /// Total allocation points. Must be the sum of all allocation points in all active generators
     pub total_alloc_point: Uint128,
-    /// The block number when the ASTRO distribution starts
+    /// The block number when the ROTO distribution starts
     pub start_block: Uint64,
     /// The list of allowed proxy reward contracts
     pub allowed_reward_proxies: Vec<Addr>,
@@ -50,13 +50,13 @@ pub struct ConfigV210 {
     pub generator_controller: Option<Addr>,
     /// The voting escrow contract address
     pub voting_escrow: Option<Addr>,
-    /// The ASTRO token address
-    pub astro_token: Addr,
-    /// Total amount of ASTRO rewards per block
+    /// The ROTO token address
+    pub roto_token: Addr,
+    /// Total amount of ROTO rewards per block
     pub tokens_per_block: Uint128,
     /// Total allocation points. Must be the sum of all allocation points in all active generators
     pub total_alloc_point: Uint128,
-    /// The block number when the ASTRO distribution starts
+    /// The block number when the ROTO distribution starts
     pub start_block: Uint64,
     /// The vesting contract from which rewards are distributed
     pub vesting_contract: Addr,
@@ -81,13 +81,13 @@ pub struct ConfigV220 {
     pub generator_controller: Option<Addr>,
     /// The voting escrow contract address
     pub voting_escrow: Option<Addr>,
-    /// [`AssetInfo`] of the ASTRO token
-    pub astro_token: AssetInfo,
-    /// Total amount of ASTRO rewards per block
+    /// [`AssetInfo`] of the ROTO token
+    pub roto_token: AssetInfo,
+    /// Total amount of ROTO rewards per block
     pub tokens_per_block: Uint128,
     /// Total allocation points. Must be the sum of all allocation points in all active generators
     pub total_alloc_point: Uint128,
-    /// The block number when the ASTRO distribution starts
+    /// The block number when the ROTO distribution starts
     pub start_block: Uint64,
     /// The vesting contract from which rewards are distributed
     pub vesting_contract: Addr,
@@ -120,7 +120,7 @@ pub fn migrate_configs_from_v200(deps: &mut DepsMut, msg: &MigrateMsg) -> StdRes
         generator_controller: cfg_200.generator_controller,
         voting_escrow: cfg_200.voting_escrow,
         voting_escrow_delegation: None,
-        astro_token: token_asset_info(cfg_200.astro_token),
+        roto_token: token_asset_info(cfg_200.roto_token),
         tokens_per_block: cfg_200.tokens_per_block,
         total_alloc_point: cfg_200.total_alloc_point,
         start_block: cfg_200.start_block,
@@ -148,7 +148,7 @@ pub fn migrate_configs_from_v210(deps: &mut DepsMut, msg: &MigrateMsg) -> StdRes
         generator_controller: cfg_210.generator_controller,
         voting_escrow: cfg_210.voting_escrow,
         voting_escrow_delegation: None,
-        astro_token: token_asset_info(cfg_210.astro_token),
+        roto_token: token_asset_info(cfg_210.roto_token),
         tokens_per_block: cfg_210.tokens_per_block,
         total_alloc_point: cfg_210.total_alloc_point,
         start_block: cfg_210.start_block,
@@ -176,7 +176,7 @@ pub fn migrate_configs_from_v220(deps: &mut DepsMut, msg: &MigrateMsg) -> StdRes
         generator_controller: cfg_220.generator_controller,
         voting_escrow: cfg_220.voting_escrow,
         voting_escrow_delegation: None,
-        astro_token: cfg_220.astro_token,
+        roto_token: cfg_220.roto_token,
         tokens_per_block: cfg_220.tokens_per_block,
         total_alloc_point: cfg_220.total_alloc_point,
         start_block: cfg_220.start_block,

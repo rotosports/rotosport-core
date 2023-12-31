@@ -1,5 +1,5 @@
 import {strictEqual} from "assert"
-import {Astroport} from "./lib.js";
+import {Rotosports} from "./lib.js";
 import {
     NativeAsset,
     newClient,
@@ -12,109 +12,109 @@ async function main() {
     const { terra, wallet } = newClient()
     const network = readArtifact(terra.config.chainID)
 
-    const astroport = new Astroport(terra, wallet);
+    const rotosports = new Rotosports(terra, wallet);
     console.log(`chainID: ${terra.config.chainID} wallet: ${wallet.key.accAddress}`)
 
     // 1. Provide liquidity
-    await provideLiquidity(network, astroport, wallet.key.accAddress)
+    await provideLiquidity(network, rotosports, wallet.key.accAddress)
 
-    // 2. Stake ASTRO
-    await stake(network, astroport, wallet.key.accAddress)
+    // 2. Stake ROTO
+    await stake(network, rotosports, wallet.key.accAddress)
 
     // 3. Swap tokens in pool
-    await swap(network, astroport, wallet.key.accAddress)
+    await swap(network, rotosports, wallet.key.accAddress)
 
     // 4. Collect Maker fees
-    await collectFees(network, astroport, wallet.key.accAddress)
+    await collectFees(network, rotosports, wallet.key.accAddress)
 
     // 5. Withdraw liquidity
-    await withdrawLiquidity(network, astroport, wallet.key.accAddress)
+    await withdrawLiquidity(network, rotosports, wallet.key.accAddress)
 
-    // 6. Unstake ASTRO
-    await unstake(network, astroport, wallet.key.accAddress)
+    // 6. Unstake ROTO
+    await unstake(network, rotosports, wallet.key.accAddress)
 }
 
-async function provideLiquidity(network: any, astroport: Astroport, accAddress: string) {
+async function provideLiquidity(network: any, rotosports: Rotosports, accAddress: string) {
     const liquidity_amount = 100000000;
-    const pool_uust_astro = astroport.pair(network.poolAstroUst);
+    const pool_uust_roto = rotosports.pair(network.poolRotoUst);
 
     // Provide liquidity in order to swap
-    await pool_uust_astro.provideLiquidity(new NativeAsset('uusd', liquidity_amount.toString()), new TokenAsset(network.tokenAddress, liquidity_amount.toString()))
+    await pool_uust_roto.provideLiquidity(new NativeAsset('uusd', liquidity_amount.toString()), new TokenAsset(network.tokenAddress, liquidity_amount.toString()))
 
-    let astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+    let roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    console.log(`ASTRO balance: ${astro_balance}`)
-    console.log(`xASTRO balance: ${xastro_balance}`)
+    console.log(`ROTO balance: ${roto_balance}`)
+    console.log(`xROTO balance: ${xroto_balance}`)
 }
 
-async function withdrawLiquidity(network: any, astroport: Astroport, accAddress: string) {
-    const pool_uust_astro = astroport.pair(network.poolAstroUst);
+async function withdrawLiquidity(network: any, rotosports: Rotosports, accAddress: string) {
+    const pool_uust_roto = rotosports.pair(network.poolRotoUst);
 
-    let pair_info = await pool_uust_astro.queryPair();
-    let lp_token_amount = await astroport.getTokenBalance(pair_info.liquidity_token, accAddress);
+    let pair_info = await pool_uust_roto.queryPair();
+    let lp_token_amount = await rotosports.getTokenBalance(pair_info.liquidity_token, accAddress);
 
     // Withdraw liquidity
-    await pool_uust_astro.withdrawLiquidity(pair_info.liquidity_token, lp_token_amount.toString());
+    await pool_uust_roto.withdrawLiquidity(pair_info.liquidity_token, lp_token_amount.toString());
 
-    let astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+    let roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    console.log(`ASTRO balance: ${astro_balance}`)
-    console.log(`xASTRO balance: ${xastro_balance}`)
+    console.log(`ROTO balance: ${roto_balance}`)
+    console.log(`xROTO balance: ${xroto_balance}`)
 }
 
-async function stake(network: any, astroport: Astroport, accAddress: string) {
-    let astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+async function stake(network: any, rotosports: Rotosports, accAddress: string) {
+    let roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    const staking = astroport.staking(network.stakingAddress);
+    const staking = rotosports.staking(network.stakingAddress);
     const staking_amount = 100000;
 
-    console.log(`Staking ${staking_amount} ASTRO`)
-    await staking.stakeAstro(network.tokenAddress, staking_amount.toString())
+    console.log(`Staking ${staking_amount} ROTO`)
+    await staking.stakeRoto(network.tokenAddress, staking_amount.toString())
 
-    let new_astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let new_xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+    let new_roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let new_xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    console.log(`ASTRO balance: ${new_astro_balance}`)
-    console.log(`xASTRO balance: ${new_xastro_balance}`)
+    console.log(`ROTO balance: ${new_roto_balance}`)
+    console.log(`xROTO balance: ${new_xroto_balance}`)
 
-    strictEqual(true, new_astro_balance < astro_balance);
-    strictEqual(true, new_xastro_balance > xastro_balance);
+    strictEqual(true, new_roto_balance < roto_balance);
+    strictEqual(true, new_xroto_balance > xroto_balance);
 }
 
-async function unstake(network: any, astroport: Astroport, accAddress: string) {
-    let astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+async function unstake(network: any, rotosports: Rotosports, accAddress: string) {
+    let roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    const staking = astroport.staking(network.stakingAddress);
+    const staking = rotosports.staking(network.stakingAddress);
 
-    console.log(`Unstaking ${xastro_balance} xASTRO`)
-    await staking.unstakeAstro(network.xastroAddress, xastro_balance.toString())
+    console.log(`Unstaking ${xroto_balance} xROTO`)
+    await staking.unstakeRoto(network.xrotoAddress, xroto_balance.toString())
 
-    let final_astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let final_xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+    let final_roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let final_xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    console.log(`ASTRO balance: ${final_astro_balance}`)
-    console.log(`xASTRO balance: ${final_xastro_balance}`)
+    console.log(`ROTO balance: ${final_roto_balance}`)
+    console.log(`xROTO balance: ${final_xroto_balance}`)
 
-    strictEqual(true, final_astro_balance >= astro_balance);
-    strictEqual(final_xastro_balance, 0);
+    strictEqual(true, final_roto_balance >= roto_balance);
+    strictEqual(final_xroto_balance, 0);
 }
 
-async function swap(network: any, astroport: Astroport, accAddress: string) {
-    const pool_uust_astro = astroport.pair(network.poolAstroUst);
-    const factory = astroport.factory(network.factoryAddress);
+async function swap(network: any, rotosports: Rotosports, accAddress: string) {
+    const pool_uust_roto = rotosports.pair(network.poolRotoUst);
+    const factory = rotosports.factory(network.factoryAddress);
     const swap_amount = 10000;
 
-    let pair_info = await pool_uust_astro.queryPair();
+    let pair_info = await pool_uust_roto.queryPair();
 
-    let astro_balance = await astroport.getTokenBalance(network.tokenAddress, accAddress);
-    let xastro_balance = await astroport.getTokenBalance(network.xastroAddress, accAddress);
+    let roto_balance = await rotosports.getTokenBalance(network.tokenAddress, accAddress);
+    let xroto_balance = await rotosports.getTokenBalance(network.xrotoAddress, accAddress);
 
-    console.log(`ASTRO balance: ${astro_balance}`)
-    console.log(`xASTRO balance: ${xastro_balance}`)
+    console.log(`ROTO balance: ${roto_balance}`)
+    console.log(`xROTO balance: ${xroto_balance}`)
 
     let fee_info = await factory.queryFeeInfo('xyk');
     strictEqual(true,  fee_info.fee_address != null, "fee address is not set")
@@ -123,23 +123,23 @@ async function swap(network: any, astroport: Astroport, accAddress: string) {
 
     console.log('swap some tokens back and forth to accumulate commission')
     for (let index = 0; index < 5; index++) {
-        console.log("swap astro to uusd")
-        await pool_uust_astro.swapCW20(network.tokenAddress, swap_amount.toString())
+        console.log("swap roto to uusd")
+        await pool_uust_roto.swapCW20(network.tokenAddress, swap_amount.toString())
 
-        console.log("swap uusd to astro")
-        await pool_uust_astro.swapNative(new NativeAsset('uusd', swap_amount.toString()))
+        console.log("swap uusd to roto")
+        await pool_uust_roto.swapNative(new NativeAsset('uusd', swap_amount.toString()))
 
-        let lp_token_amount = await astroport.getTokenBalance(pair_info.liquidity_token, accAddress);
-        let share_info = await pool_uust_astro.queryShare(lp_token_amount.toString());
+        let lp_token_amount = await rotosports.getTokenBalance(pair_info.liquidity_token, accAddress);
+        let share_info = await pool_uust_roto.queryShare(lp_token_amount.toString());
         console.log(share_info)
     }
 }
 
-async function collectFees(network: any, astroport: Astroport, accAddress: string) {
-    const maker = astroport.maker(network.makerAddress);
+async function collectFees(network: any, rotosports: Rotosports, accAddress: string) {
+    const maker = rotosports.maker(network.makerAddress);
 
     let maker_cfg = await maker.queryConfig();
-    strictEqual(maker_cfg.astro_token_contract, network.tokenAddress)
+    strictEqual(maker_cfg.roto_token_contract, network.tokenAddress)
     strictEqual(maker_cfg.staking_contract, network.stakingAddress)
 
     let balances = await maker.queryBalances([new TokenAsset(network.tokenAddress, '0')]);
@@ -147,7 +147,7 @@ async function collectFees(network: any, astroport: Astroport, accAddress: strin
 
     console.log(balances)
 
-    let resp = await maker.collect([network.poolAstroUst])
+    let resp = await maker.collect([network.poolRotoUst])
     console.log(resp)
 }
 

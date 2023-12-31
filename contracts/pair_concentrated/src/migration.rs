@@ -1,5 +1,5 @@
-use astroport::asset::{AssetInfo, PairInfo};
-use astroport::factory::PairType;
+use rotosports::asset::{AssetInfo, PairInfo};
+use rotosports::factory::PairType;
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, StdError, Storage, Uint128};
 use cw_storage_plus::Item;

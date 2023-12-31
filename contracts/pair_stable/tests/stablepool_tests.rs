@@ -1,8 +1,8 @@
 use cosmwasm_std::Addr;
 use itertools::Itertools;
 
-use astroport::asset::AssetInfoExt;
-use astroport_pair_stable::error::ContractError;
+use rotosports::asset::AssetInfoExt;
+use rotosports_pair_stable::error::ContractError;
 use helper::AppExtension;
 
 use crate::helper::{Helper, TestCoin};
